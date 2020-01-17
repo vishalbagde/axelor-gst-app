@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.2.xsd">
+
+  <module name="gst" package="com.axelor.gst.db" />
+  <entity name="Invoice">
+
+    <string name="status" selection="invoice.status.selection" default="Draft" readonly="true"></string>
+    <many-to-one name="company" ref="Company" required="true"/>
+    <string name="reference" readonly="true"/>
+    <datetime name="invoiceDate"></datetime>
+    <integer name="priority" default="1"></integer>
+    <many-to-one name="party" ref="Party" required="true"/>
+    <many-to-one name="partyContact" ref="Contact"/>
+    <many-to-one name="invoiceAddress" ref="Address"/>
+    <many-to-one name="shippingAddress" ref="Address"></many-to-one>
+    <boolean name="isInvoiceAddAsShippingAdd" default="true"/>
+    <decimal name="netAmount" readonly="true"/>
+    <decimal name="igst" readonly="true"/>
+    <decimal name="cgst" readonly="true"/>
+    <decimal name="sgst" readonly="true"/>
+    <decimal name="grossAmount"></decimal>
+    <many-to-one name="invoiceItems" ref="InvoiceLine"></many-to-one>
+  </entity>
+</domain-models>

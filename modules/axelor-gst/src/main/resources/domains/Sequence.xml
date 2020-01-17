@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.2.xsd">
+
+  <module name="gst" package="com.axelor.gst.db" />
+  <entity name="Sequence">
+    <string name="prefix" required="true"/>
+    <string name="suffix" />
+    <integer name="padding" min="1" max="10"/>
+    <string name="nextNumber"></string>
+    <many-to-one name="model" ref="com.axelor.meta.db.MetaModel" required="true"></many-to-one>
+  </entity>
+</domain-models>

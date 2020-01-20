@@ -8,7 +8,7 @@
 
     <string name="name" required="true"/>
     <many-to-one name="logo" ref="com.axelor.meta.db.MetaFile"/>
-    <many-to-one name="contact" ref="Contact"/>
+    <one-to-many name="contact" ref="Contact"/>
     <string name="gstin" min="15" max="15"/>
     <one-to-many name="bankDetails" ref="BankAccount" />
     <many-to-one name="address" ref="Address" ></many-to-one>

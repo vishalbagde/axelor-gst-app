@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
+
+
+  <form model="com.axelor.gst.db.Product" title="Product" name="product-form">
+    <panel title="Product Details" css="panel-red">
+      <panel colSpan="4">
+        <field name="image" widget="Image" showTitle="false" colSpan="12"></field>
+      </panel>
+      <panel colSpan="8">
+        <field name="code" colSpan="12" />
+        <field name="name" colSpan="12" />
+        <field name="hsbn" colSpan="12" />
+      </panel>
+    </panel>
+    <panel colSpan="12">
+      <field name="category" />
+    </panel>
+    <panel itemSpan="4">
+      <field name="salePrice" />
+      <field name="costPrice" />
+      <field name="gstRate" />
+    </panel>
+  </form>
+
+  <grid model="com.axelor.gst.db.Product" title="Product" name="product-grid" >
+    <field name="code"></field>
+    <field name="name"></field>
+    <field name="hsbn"></field>
+    <field name="gstRate"></field>
+    <field name="costPrice"></field>
+    <field name="salePrice"></field>
+  </grid>
+
+
+<cards name="product-card" title="Product" model="com.axelor.gst.db.Product"
+    orderBy="name">
+    <field name="name" />
+    <field name="hsbn" />
+    <field name="code" />
+    <field name="category" />
+    <field name="image" />
+    <template><![CDATA[
+      <div class="span4 card-image">
+        <img ng-if="!image" ng-src="{{$image(null, 'image')}}">
+        <img ng-if="image" src="img/user.png">
+        <strong>{{name}}</strong>
+      </div>
+      <div class="span8">
+         <span ng-if="name" title="Name">Name:</span> {{name}}<br>
+         <span ng-if="code" title="Code">Code:</span> {{code}}<br>
+         <span ng-if="category" title="Category">Category:</span> {{category.name}}<br>
+         <span ng-if="hsbn" title="Hsbn">HSBN:</span> {{hsbn}}<br>
+     </div>
+    ]]></template>
+  </cards>
+
+
+</object-views>

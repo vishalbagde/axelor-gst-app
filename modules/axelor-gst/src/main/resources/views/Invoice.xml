@@ -4,10 +4,111 @@
   xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
 
   <selection name="invoice.status.selection">
-    <option value="draft">Draft</option>
-    <option value="validated">Validated</option>
-    <option value="Paid">Paid</option>
-    <option value="Cancelled">Cancelled</option>
+    <option value="draft">draft</option>
+    <option value="validated">validated</option>
+    <option value="paid">paid</option>
+    <option value="cancelled">cancelled</option>
   </selection>
+
+  <form model="com.axelor.gst.db.Invoice" title="Invoice Details"
+    name="invoice-form">
+
+    <panel>
+      <field colSpan="12" name="status" widget="nav-select" readonly="true"></field>
+    </panel>
+
+    <panel itemSpan="12" sidebar="true">
+      <button name="statusDraftBtn" css="btn-primary" title="Draft" hidden="true"
+        showIf="status =='cancelled'"
+        onClick="action-attrs-invoice-on-click-change-statusDraft" />
+      <button name="statusVadidatedBtn" css="btn-success" title="Validated"
+        showIf="status =='draft'" onClick="action-attrs-invoice-on-click-change-statusValidated" />
+      <button name="statusPaidBtn" css="btn-warning" title="Paid"
+        showIf="status == 'validated'" onClick="action-attrs-invoice-on-click-change-statusPaid" />
+      <button name="statusCancelledBtn" css="btn-danger" title="Cancelled"
+        hideIf="status =='cancelled'" onClick="action-attrs-invoice-on-click-change-statusCanceled" />
+    </panel>
+
+
+    <panel itemSpan="3">
+      <field name="reference" />
+      <field name="company" />
+      <field name="invoiceDate" />
+      <field name="priority" />
+    </panel>
+
+    <panel itemSpan="6">
+      <field name="party" />
+      <field name="partyContact" />
+    </panel>
+
+    <panel>
+      <field name="invoiceAddress" colSpan="5" />
+      <field name="isInvoiceAddAsShippingAdd" colSpan="2" />
+      <field name="shippingAddress" colSpan="5" />
+    </panel>
+
+    <panel-related field="invoiceItems" editable="true">
+      <field name="product"></field>
+      <field name="hsbn"></field>
+      <field name="item"></field>
+      <field name="qty"></field>
+      <field name="price"></field>
+      <field name="netAmount"></field>
+      <field name="gstRate"></field>
+      <field name="igst"></field>
+      <field name="cgst"></field>
+      <field name="sgst"></field>
+      <field name="grossAmount"></field>
+    </panel-related>
+
+    <panel colOffset="8">
+      <field colOffset="10" title="Net Amount" readonly="true" name="netAmount"></field>
+      <field colOffset="10" title="IGST" readonly="true" name="igst"></field>
+      <field colOffset="10" title="CGST" readonly="true" name="cgst"></field>
+      <field colOffset="10" title="SGST" readonly="true" name="sgst"></field>
+      <field colOffset="10" title="Gross Amount" readonly="true"
+        name="grossAmount"></field>
+    </panel>
+
+  </form>
+
+
+   <kanban name="invoice-kanban" title="Invoice"
+    model="com.axelor.gst.db.Invoice" columnBy="status"
+    sequenceBy="priority" limit="10" onMove="project.task.kanban.on.move"
+    draggable="true"  >
+    <field name="reference" />
+    <field name="invoiceDate" />
+    <field name="party" />
+    <field name="grossAmount" />
+    <template><![CDATA[
+    <h4>{{reference}}</h4>
+    <div class="card-body">{{party}}</div>
+    <div class="card-footer">
+        <span>{{invoiceDate|date:'yyyy-MM-dd HH:mm:ss'}}</span>
+    </div>
+    ]]></template>
+  </kanban>
+
+  <action-attrs name="action-attrs-invoice-on-click-change-statusDraft">
+    <attribute name="value" for="status" expr="eval:status='draft'" />
+  </action-attrs>
+
+  <action-attrs name="action-attrs-invoice-on-click-change-statusValidated">
+    <attribute name="value" for="status" expr="eval:status='validated'" />
+  </action-attrs>
+
+  <action-attrs name="action-attrs-invoice-on-click-change-statusPaid">
+    <attribute name="value" for="status" expr="eval:status='paid'" />
+  </action-attrs>
+
+  <action-attrs name="action-attrs-invoice-on-click-change-statusCanceled">
+    <attribute name="value" for="status" expr="eval:status='cancelled'" />
+  </action-attrs>
+
+
+
+
 
 </object-views>

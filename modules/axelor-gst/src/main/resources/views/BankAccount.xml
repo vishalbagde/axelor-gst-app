@@ -8,4 +8,28 @@
     <option value="current">Current</option>
   </selection>
 
-  </object-views>
+
+  <form model="com.axelor.gst.db.BankAccount" title="Company"
+    name="bankAccount-form">
+    <panel itemSpan="6">
+      <field name="bank" title="Bank Name" />
+      <field name="accountNo"  />
+      <field name="ifsc" title="IFSC Code" />
+      <field name="type" title="Account Type" />
+    </panel>
+    <panel colSpan="12" title="Bank Address Details">
+      <field name="address" colSpan="12" />
+    </panel>
+  </form>
+
+  <grid model="com.axelor.gst.db.BankAccount" title="Bank Account"
+    name="bankAccount-grid">
+    <field name="bank" />
+    <field name="accountNo" />
+    <field name="ifsc" />
+    <field name="type" />
+  </grid>
+
+
+
+</object-views>

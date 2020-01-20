@@ -9,4 +9,31 @@
     <option value="others">Others</option>
   </selection>
 
+
+ <form model="com.axelor.gst.db.Contact" title="Contact" name="contact-form">
+    <panel itemSpan="6">
+      <field name="name" title="Contact Name"></field>
+      <field name="type" title="Contact Type"></field>
+    </panel>
+
+    <panel itemSpan="6">
+      <field name="primaryEmail" ></field>
+      <field name="secondaryEmail"></field>
+    </panel>
+
+    <panel itemSpan="6">
+      <field name="primaryPhone" ></field>
+      <field name="secondaryPhone"></field>
+    </panel>
+  </form>
+
+  <grid model="com.axelor.gst.db.Contact" title="Contact" name="contact-grid">
+      <field name="name" title="Contact Name"></field>
+      <field name="type" title="Contact Type"></field>
+      <field name="primaryEmail" ></field>
+      <field name="primaryPhone" ></field>
+  </grid>
+
+
+
   </object-views>

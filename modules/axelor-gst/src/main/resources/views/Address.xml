@@ -10,4 +10,30 @@
     <option value="other">Other</option>
   </selection>
 
+   <form model="com.axelor.gst.db.Address" title="Address" name="address-form">
+    <panel itemSpan="4" title="Address Details">
+      <field name="type"/>
+      <field name="line1"/>
+      <field name="line2"/>
+    </panel>
+    <panel itemSpan="3" title="Area Details">
+      <field name="city"/>
+      <field name="state"/>
+      <field name="country"/>
+      <field name="pinCode"/>
+    </panel>
+  </form>
+
+  <grid model="com.axelor.gst.db.Address" title="Address" name="address-grid">
+    <field name="type"></field>
+    <field name="line1"></field>
+    <field name="city"></field>
+    <field name="state"></field>
+    <field name="country"></field>
+    <field name="pinCode"></field>
+  </grid>
+
+
+
+
   </object-views>

@@ -17,5 +17,6 @@
     <decimal name="sgst" readonly="true"/>
     <decimal name="cgst" readonly="true"/>
     <decimal name="grossAmount" readonly="true"/>
+    <many-to-one name="invoice" ref="Invoice"></many-to-one>
   </entity>
 </domain-models>

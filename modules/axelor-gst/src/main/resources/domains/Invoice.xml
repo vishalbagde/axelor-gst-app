@@ -6,7 +6,7 @@
   <module name="gst" package="com.axelor.gst.db" />
   <entity name="Invoice">
 
-    <string name="status" selection="invoice.status.selection" default="Draft" readonly="true"></string>
+    <string name="status" selection="invoice.status.selection" default="draft" readonly="true"></string>
     <many-to-one name="company" ref="Company" required="true"/>
     <string name="reference" readonly="true"/>
     <datetime name="invoiceDate"></datetime>
@@ -21,6 +21,6 @@
     <decimal name="cgst" readonly="true"/>
     <decimal name="sgst" readonly="true"/>
     <decimal name="grossAmount"></decimal>
-    <many-to-one name="invoiceItems" ref="InvoiceLine"></many-to-one>
+    <one-to-many name="invoiceItems" ref="InvoiceLine" mappedBy="invoice" />
   </entity>
 </domain-models>

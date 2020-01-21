@@ -50,7 +50,11 @@
         onChange="action-attrs-invoice-on-change-set-shipping-address" />
       <field name="isInvoiceAddAsShippingAdd" colSpan="2"
         onChange="action-attrs-invoice-on-change-set-shipping-address" />
+<<<<<<< HEAD
       <field name="shippingAddress" colSpan="5" hideIf="isInvoiceAddAsShippingAdd" />
+=======
+      <field name="shippingAddress" colSpan="5" />
+>>>>>>> 967d63047b8060f6d62c523f09abf6fffe0b2984
     </panel>
 
     <panel-related field="invoiceLineList" css="panel-green" onChange="action-gst-invoice-line-method-on-new-set-total" >

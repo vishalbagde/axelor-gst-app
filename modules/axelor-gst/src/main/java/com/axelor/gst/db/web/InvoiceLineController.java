@@ -1,11 +1,17 @@
 package com.axelor.gst.db.web;
 
+<<<<<<< HEAD
+=======
+import java.math.BigDecimal;
+
+>>>>>>> 967d63047b8060f6d62c523f09abf6fffe0b2984
 import com.axelor.gst.db.Address;
 import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.InvoiceLine;
 import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
 import java.math.BigDecimal;
+
 
 public class InvoiceLineController {
 
@@ -30,9 +36,16 @@ public class InvoiceLineController {
     }
 
     response.setValue("grossAmount", invoiceLine.getNetAmount().floatValue() + gstAmount);
+<<<<<<< HEAD
     invoiceLine.setGrossAmount(
         BigDecimal.valueOf(invoiceLine.getNetAmount().floatValue() + gstAmount));
     invoice.setIgst(BigDecimal.valueOf(gstAmount));
     response.setValues(invoiceLine);
+=======
+    invoiceLine.setGrossAmount(BigDecimal.valueOf(invoiceLine.getNetAmount().floatValue() + gstAmount));
+    invoice.setIgst(BigDecimal.valueOf(gstAmount));
+    response.setValues(invoiceLine);
+    
+>>>>>>> 967d63047b8060f6d62c523f09abf6fffe0b2984
   }
 }

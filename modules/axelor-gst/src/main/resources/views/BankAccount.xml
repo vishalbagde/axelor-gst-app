@@ -9,20 +9,20 @@
   </selection>
 
   <form model="com.axelor.gst.db.BankAccount" title="Bank Account"
-    name="bankAccount-form">
-    <panel itemSpan="6">
+    name="bank-account-form">
+    <panel itemSpan="6" name="overview">
       <field name="bank" />
       <field name="accountNo" />
       <field name="ifsc" />
       <field name="typeSelect" />
     </panel>
-    <panel colSpan="12" title="Bank Address Details">
+    <panel colSpan="12" title="Bank Address Details" name="addressPanel">
       <field name="address" colSpan="12" />
     </panel>
   </form>
 
   <grid model="com.axelor.gst.db.BankAccount" title="Bank Account"
-    name="bankAccount-grid">
+    name="bank-account-grid">
     <field name="bank" />
     <field name="accountNo" />
     <field name="ifsc" />

@@ -11,12 +11,12 @@
   </selection>
 
    <form model="com.axelor.gst.db.Address" title="Address" name="address-form" width="large">
-    <panel itemSpan="4" title="Address Details">
+    <panel itemSpan="4" title="Address Details" name="overview">
       <field name="typeSelect"/>
       <field name="line1"/>
       <field name="line2"/>
     </panel>
-    <panel itemSpan="3" title="Area Details">
+    <panel itemSpan="3" title="Area Details" name="areaPanel">
       <field name="city"/>
       <field name="state"/>
       <field name="country"/>

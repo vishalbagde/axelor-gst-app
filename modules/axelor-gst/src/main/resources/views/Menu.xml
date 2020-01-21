@@ -197,9 +197,9 @@
     parent="menu-company-main-all" action="menu-action-view-bank-account-all" />
 
   <action-view name="menu-action-view-bank-account-all"
-    title="Bank Account" model="com.axelor.gst.db.BankAccount">
-    <view type="grid" name="bankAccount-grid" />
-    <view type="form" name="bankAccount-form" />
+    title="Bank Account" model="com.axelor.gst.db.bankAccount">
+    <view type="grid" name="bank-account-grid" />
+    <view type="form" name="bank-account-form" />
   </action-view>
 
   <!-- Menu Sequence -->

@@ -10,16 +10,17 @@
     <option value="cancelled">cancelled</option>
   </selection>
 
-  <form model="com.axelor.gst.db.Invoice" title="Invoice Details"
+  <form model="com.axelor.gst.db.Invoice" title="Invoice Details" width="large"
     name="invoice-form"
-    onNew="action-gst-invoice-record-set-company,action-gst-invoice-record-set-invoice-date">
+    onNew="action-gst-invoice-record-set-company,action-gst-invoice-record-set-invoice-date"
+    onSave="action-gst-invoice-method-on-save-set-reference">
 
-    <panel>
+    <panel name="invoiceStatusPanel">
       <field colSpan="12" name="statusSelect" widget="nav-select"
         readonly="true"></field>
     </panel>
 
-    <panel itemSpan="12" sidebar="true">
+    <panel itemSpan="12" sidebar="true" name="statusBtnPanel">
       <button name="statusDraftBtn" css="btn-primary" title="Draft"
         hidden="true" showIf="statusSelect =='cancelled'"
         onClick="action-attrs-invoice-on-click-change-status-draft" />
@@ -31,31 +32,31 @@
         hideIf="statusSelect =='cancelled'" onClick="action-attrs-invoice-on-click-change-status-canceled" />
     </panel>
 
-    <panel itemSpan="3">
+    <panel itemSpan="3" name="overview">
       <field name="reference" />
       <field name="company" />
       <field name="invoiceDateT" />
       <field name="priority" />
     </panel>
 
-    <panel itemSpan="6">
+    <panel itemSpan="6" name="partyDetailsPanel">
       <field name="party"
         onChange="action-gst-invoice-record-set-primary-contact-in-party,action-attrs-invoice-on-change-set-shipping-address" />
       <field name="partyContact" />
     </panel>
 
-    <panel>
-      <field name="invoiceAddress" colSpan="5" onChange="action-attrs-invoice-on-change-set-shipping-address" />
-      <field name="isInvoiceAddAsShippingAdd" colSpan="2" onChange="action-attrs-invoice-on-change-set-shipping-address" />
-      <field name="shippingAddress" colSpan="5" />
+    <panel name="addressPanel">
+      <field name="invoiceAddress" colSpan="5"
+        onChange="action-attrs-invoice-on-change-set-shipping-address" />
+      <field name="isInvoiceAddAsShippingAdd" colSpan="2"
+        onChange="action-attrs-invoice-on-change-set-shipping-address" />
+      <field name="shippingAddress" colSpan="5" hideIf="isInvoiceAddAsShippingAdd" />
     </panel>
 
-    <panel-related field="invoiceLineList"
-      css="panel-green">
-
+    <panel-related field="invoiceLineList" css="panel-green" onChange="action-gst-invoice-line-method-on-new-set-total" >
     </panel-related>
 
-    <panel colSpan="12" colOffset="2" css="panel-green">
+    <panel colSpan="12" colOffset="2" css="panel-green" name="totalDetailsPanel">
       <field colSpan="2" title="Net Amount" readonly="true" name="netAmount"></field>
       <field colSpan="2" readonly="true" name="igst"></field>
       <field colSpan="2" readonly="true" name="cgst"></field>
@@ -65,15 +66,13 @@
   </form>
 
   <grid model="com.axelor.gst.db.Invoice" title="Invoice" name="invoice-grid">
-    <field name="reference"/>
-      <field name="company"/>
-      <field name="invoiceDateT" />
-      <field name="party"/>
-      <field name="grossAmount"/>
-      <field name="statusSelect"/>
-
+    <field name="reference" />
+    <field name="company" />
+    <field name="invoiceDateT" />
+    <field name="party" />
+    <field name="grossAmount" />
+    <field name="statusSelect" />
   </grid>
-
 
   <kanban name="invoice-kanban" title="Invoice" model="com.axelor.gst.db.Invoice"
     columnBy="status" sequenceBy="priority" limit="10"
@@ -107,9 +106,10 @@
     <attribute name="value" for="statusSelect" expr="eval:'cancelled'" />
   </action-attrs>
 
-  <!-- to set Default Shipping address  -->
+  <!-- to set Default Shipping address -->
   <action-attrs name="action-attrs-invoice-on-change-set-shipping-address">
-    <attribute name="value" if="isInvoiceAddAsShippingAdd" for="shippingAddress" expr="eval:invoiceAddress" />
+    <attribute name="value" if="isInvoiceAddAsShippingAdd" for="shippingAddress"
+      expr="eval:invoiceAddress" />
   </action-attrs>
 
   <action-record name="action-gst-invoice-record-set-company"
@@ -125,6 +125,16 @@
   <action-method name="action-gst-invoice-record-set-primary-contact-in-party"
     model="com.axelor.db.Invoice">
     <call class="com.axelor.gst.db.web.InvoiceController" method="setPrimaryContactAndAddressInInvoice" />
+  </action-method>
+
+  <action-method name="action-gst-invoice-method-on-save-set-reference"
+    model="com.axelor.gst.db.Invoice">
+    <call  class="com.axelor.gst.db.web.SequenceController" method="setReferenceInInvoice" />
+  </action-method>
+
+  <action-method name="action-gst-invoice-line-method-on-new-set-total"
+    model="com.axelor.gst.db.Invoice">
+    <call  class="com.axelor.gst.db.web.InvoiceController" method="setTotalInInvoice" />
   </action-method>
 
 </object-views>

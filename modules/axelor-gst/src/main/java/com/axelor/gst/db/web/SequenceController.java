@@ -1,5 +1,6 @@
 package com.axelor.gst.db.web;
 
+import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.Party;
 import com.axelor.gst.db.service.SequenceService;
 import com.axelor.rpc.ActionRequest;
@@ -12,12 +13,22 @@ public class SequenceController {
 
   public void setReferenceInParty(ActionRequest request, ActionResponse response) {
     Party party = request.getContext().asType(Party.class);
-    
-    if(party.getId()==null)
-    {
-    String seq = sequenceService.getSequence("Party");
-    party.setReference(seq);
-    response.setValue("reference", seq);
+
+    if (party.getReference() == null) {
+      String seq = sequenceService.getSequence("Party");
+      party.setReference(seq);
+      response.setValue("reference", seq);
+    }
+  }
+
+  public void setReferenceInInvoice(ActionRequest request, ActionResponse response) {
+
+    Invoice invoice = request.getContext().asType(Invoice.class);
+
+    if (invoice.getReference() == null) {
+      String seq = sequenceService.getSequence("Invoice");
+      invoice.setReference(seq);
+      response.setValue("reference", seq);
     }
   }
 }

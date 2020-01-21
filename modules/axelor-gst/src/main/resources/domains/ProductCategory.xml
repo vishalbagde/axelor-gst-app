@@ -5,8 +5,8 @@
 
   <module name="gst" package="com.axelor.gst.db" />
   <entity name="ProductCategory">
-  <string name="code" title="Category Code" required="true"/>
+  <string name="code" title="Category Code" required="true" />
     <string name="name" title="Category Name" namecolumn="true" required="true"/>
-    <decimal name="gstRate"/>
+    <decimal name="gstRate" title="GST Rate"/>
   </entity>
 </domain-models>

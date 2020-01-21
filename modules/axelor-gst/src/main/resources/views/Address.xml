@@ -4,15 +4,15 @@
   xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
 
   <selection name="address.type.selection">
-    <option value="default">Default</option>
-    <option value="invoice">Invoice</option>
-    <option value="shipping">Shipping</option>
-    <option value="other">Other</option>
+    <option value="default">default</option>
+    <option value="invoice">invoice</option>
+    <option value="shipping">shipping</option>
+    <option value="other">other</option>
   </selection>
 
-   <form model="com.axelor.gst.db.Address" title="Address" name="address-form">
+   <form model="com.axelor.gst.db.Address" title="Address" name="address-form" width="large">
     <panel itemSpan="4" title="Address Details">
-      <field name="type"/>
+      <field name="typeSelect"/>
       <field name="line1"/>
       <field name="line2"/>
     </panel>
@@ -25,7 +25,7 @@
   </form>
 
   <grid model="com.axelor.gst.db.Address" title="Address" name="address-grid">
-    <field name="type"></field>
+    <field name="typeSelect"></field>
     <field name="line1"></field>
     <field name="city"></field>
     <field name="state"></field>

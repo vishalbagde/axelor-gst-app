@@ -5,13 +5,10 @@
 
   <module name="gst" package="com.axelor.gst.db" />
   <entity name="BankAccount">
-
-
-    <string name="bank" required="true"/>
-    <string name="accountNo" required="true"/>
-    <string name="ifsc" required="true"/>
-    <string name="type" selection="bankAccount.type.selection" default="Current" />
-    <string name="address" multiline="true"/>
-
+    <string name="bank" required="true" title="Bank Name"/>
+    <string name="accountNo" required="true" title="Account No"/>
+    <string name="ifsc" required="true"  title="IFSC Code"/>
+    <string name="typeSelect" selection="bankAccount.type.selection" default="Current" title="Bank Account Type" />
+    <string name="address" multiline="true" title="Bank Address"/>
   </entity>
 </domain-models>

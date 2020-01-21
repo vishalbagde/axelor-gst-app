@@ -5,9 +5,9 @@
 
   <module name="gst" package="com.axelor.gst.db" />
   <entity name="City">
-    <string name="name" namecolumn="true" required="true" />
-    <string name="state" />
-    <string name="country" />
+    <string name="name" namecolumn="true" required="true" title="City Name" />
+    <string name="state" title="State" />
+    <string name="country" title="Country" />
   </entity>
 
 </domain-models>

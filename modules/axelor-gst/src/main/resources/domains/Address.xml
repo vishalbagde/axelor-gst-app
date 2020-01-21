@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <domain-models xmlns="http://axelor.com/xml/ns/domain-models"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.2.xsd">
-
-	<module name="gst" package="com.axelor.gst.db" />
-	<entity name="Address">
-		<string name="type" selection="address.type.selection" />
-		<string name="line1" namecolumn="true" required="true" />
-		<string name="line2" />
-		<many-to-one name="city" ref="City" required="true" />
-		<many-to-one name="state" ref="State" />
-		<many-to-one name="country" ref="Country" required="true" />
-		<string name="pinCode" />
-	</entity>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.2.xsd">
+  <module name="gst" package="com.axelor.gst.db" />
+  <entity name="Address">
+    <string name="typeSelect" selection="address.type.selection" title="Address Type" />
+    <string name="line1" namecolumn="true" required="true" title="Address Line1" />
+    <string name="line2" title="Address Line2" />
+    <many-to-one name="city" ref="City" required="true" title="City" />
+    <many-to-one name="state" ref="State" title="State" />
+    <many-to-one name="country" ref="Country" required="true" title="Country" />
+    <string name="pinCode" title="Pincode" />
+  </entity>
 </domain-models>

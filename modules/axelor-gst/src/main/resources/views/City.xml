@@ -3,8 +3,8 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
 
-  <form model="com.axelor.gst.db.City" title="City" name="city-form">
-    <panel itemSpan="4" title="City Details">
+  <form model="com.axelor.gst.db.City" title="City" name="city-form" width="large">
+    <panel itemSpan="4" title="City Details" name="overview">
       <field name="name"></field>
       <field name="state"></field>
       <field name="country"></field>

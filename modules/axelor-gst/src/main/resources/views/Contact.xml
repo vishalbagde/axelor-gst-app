@@ -4,24 +4,21 @@
   xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
 
   <selection name="contact.type.selection">
-    <option value="primary">Primary</option>
-    <option value="secondary">Secondary</option>
-    <option value="others">Others</option>
+    <option value="primary">primary</option>
+    <option value="secondary">secondary</option>
+    <option value="others">others</option>
   </selection>
 
 
  <form model="com.axelor.gst.db.Contact" title="Contact" name="contact-form">
-    <panel itemSpan="6">
+    <panel itemSpan="6" name="mainPanel">
       <field name="name" title="Contact Name"></field>
-      <field name="type" title="Contact Type"></field>
+      <field name="typeSelect" title="Contact Type"></field>
     </panel>
 
-    <panel itemSpan="6">
+    <panel itemSpan="6" name="emailPhonePanel">
       <field name="primaryEmail" ></field>
       <field name="secondaryEmail"></field>
-    </panel>
-
-    <panel itemSpan="6">
       <field name="primaryPhone" ></field>
       <field name="secondaryPhone"></field>
     </panel>
@@ -29,11 +26,8 @@
 
   <grid model="com.axelor.gst.db.Contact" title="Contact" name="contact-grid">
       <field name="name" title="Contact Name"></field>
-      <field name="type" title="Contact Type"></field>
+      <field name="typeSelect" title="Contact Type"></field>
       <field name="primaryEmail" ></field>
       <field name="primaryPhone" ></field>
   </grid>
-
-
-
   </object-views>

@@ -4,38 +4,33 @@
   xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
 
 
-  <form model="com.axelor.gst.db.Company" title="Company" name="company-form">
+  <form model="com.axelor.gst.db.Company" title="Company" name="company-form"
+    width="large">
 
     <panel title="Company" css="panel-red">
       <panel colSpan="4">
         <field name="logo" widget="Image" showTitle="false" colSpan="12"></field>
       </panel>
-      <panel colSpan="8">
-        <field name="name" colSpan="12" />
+      <panel colSpan="8" itemSpan="8">
+        <field name="name" />
+        <field name="address" />
+        <field name="gstin"></field>
       </panel>
-    </panel>
-    <panel itemSpan="6">
-      <field name="address" />
-      <field name="gstin"></field>
     </panel>
 
     <panel colSpan="12" title="Contact Details">
-      <field name="contact">
+      <field name="contactList" showTitle="false">
         <editor itemSpan="4">
-          <field name="name"></field>
-          <field name="type"></field>
+          <field name="name" title="Contact Name"></field>
+          <field name="typeSelect" title="Contact Type"></field>
+          <field name="primaryEmail"></field>
+          <field name="secondaryEmail"></field>
+          <field name="primaryPhone"></field>
+          <field name="secondaryPhone"></field>
         </editor>
       </field>
     </panel>
-
-    <panel-related field="bankDetails" editable="true">
-      <field name="bank" />
-      <field name="accountNo" />
-      <field name="ifsc" />
-      <field name="type" />
-    </panel-related>
-
-
+    <panel-related field="bankAccountList" />
   </form>
 
   <grid model="com.axelor.gst.db.Company" title="Party" name="company-grid">
@@ -43,6 +38,5 @@
     <field name="gstin"></field>
     <field name="address"></field>
   </grid>
-
 
 </object-views>

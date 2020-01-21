@@ -11,73 +11,73 @@
   </selection>
 
   <form model="com.axelor.gst.db.Invoice" title="Invoice Details"
-    name="invoice-form">
+    name="invoice-form"
+    onNew="action-gst-invoice-record-set-company,action-gst-invoice-record-set-invoice-date">
 
     <panel>
-      <field colSpan="12" name="status" widget="nav-select" readonly="true"></field>
+      <field colSpan="12" name="statusSelect" widget="nav-select"
+        readonly="true"></field>
     </panel>
 
     <panel itemSpan="12" sidebar="true">
-      <button name="statusDraftBtn" css="btn-primary" title="Draft" hidden="true"
-        showIf="status =='cancelled'"
-        onClick="action-attrs-invoice-on-click-change-statusDraft" />
+      <button name="statusDraftBtn" css="btn-primary" title="Draft"
+        hidden="true" showIf="statusSelect =='cancelled'"
+        onClick="action-attrs-invoice-on-click-change-status-draft" />
       <button name="statusVadidatedBtn" css="btn-success" title="Validated"
-        showIf="status =='draft'" onClick="action-attrs-invoice-on-click-change-statusValidated" />
+        showIf="statusSelect =='draft'" onClick="action-attrs-invoice-on-click-change-status-validated" />
       <button name="statusPaidBtn" css="btn-warning" title="Paid"
-        showIf="status == 'validated'" onClick="action-attrs-invoice-on-click-change-statusPaid" />
+        showIf="statusSelect == 'validated'" onClick="action-attrs-invoice-on-click-change-status-paid" />
       <button name="statusCancelledBtn" css="btn-danger" title="Cancelled"
-        hideIf="status =='cancelled'" onClick="action-attrs-invoice-on-click-change-statusCanceled" />
+        hideIf="statusSelect =='cancelled'" onClick="action-attrs-invoice-on-click-change-status-canceled" />
     </panel>
-
 
     <panel itemSpan="3">
       <field name="reference" />
       <field name="company" />
-      <field name="invoiceDate" />
+      <field name="invoiceDateT" />
       <field name="priority" />
     </panel>
 
     <panel itemSpan="6">
-      <field name="party" />
+      <field name="party"
+        onChange="action-gst-invoice-record-set-primary-contact-in-party,action-attrs-invoice-on-change-set-shipping-address" />
       <field name="partyContact" />
     </panel>
 
     <panel>
-      <field name="invoiceAddress" colSpan="5" />
-      <field name="isInvoiceAddAsShippingAdd" colSpan="2" />
+      <field name="invoiceAddress" colSpan="5" onChange="action-attrs-invoice-on-change-set-shipping-address" />
+      <field name="isInvoiceAddAsShippingAdd" colSpan="2" onChange="action-attrs-invoice-on-change-set-shipping-address" />
       <field name="shippingAddress" colSpan="5" />
     </panel>
 
-    <panel-related field="invoiceItems" editable="true">
-      <field name="product"></field>
-      <field name="hsbn"></field>
-      <field name="item"></field>
-      <field name="qty"></field>
-      <field name="price"></field>
-      <field name="netAmount"></field>
-      <field name="gstRate"></field>
-      <field name="igst"></field>
-      <field name="cgst"></field>
-      <field name="sgst"></field>
-      <field name="grossAmount"></field>
+    <panel-related field="invoiceLineList"
+      css="panel-green">
+
     </panel-related>
 
-    <panel colOffset="8">
-      <field colOffset="10" title="Net Amount" readonly="true" name="netAmount"></field>
-      <field colOffset="10" title="IGST" readonly="true" name="igst"></field>
-      <field colOffset="10" title="CGST" readonly="true" name="cgst"></field>
-      <field colOffset="10" title="SGST" readonly="true" name="sgst"></field>
-      <field colOffset="10" title="Gross Amount" readonly="true"
-        name="grossAmount"></field>
+    <panel colSpan="12" colOffset="2" css="panel-green">
+      <field colSpan="2" title="Net Amount" readonly="true" name="netAmount"></field>
+      <field colSpan="2" readonly="true" name="igst"></field>
+      <field colSpan="2" readonly="true" name="cgst"></field>
+      <field colSpan="2" readonly="true" name="sgst"></field>
+      <field colSpan="2" readonly="true" name="grossAmount"></field>
     </panel>
-
   </form>
 
+  <grid model="com.axelor.gst.db.Invoice" title="Invoice" name="invoice-grid">
+    <field name="reference"/>
+      <field name="company"/>
+      <field name="invoiceDateT" />
+      <field name="party"/>
+      <field name="grossAmount"/>
+      <field name="statusSelect"/>
 
-   <kanban name="invoice-kanban" title="Invoice"
-    model="com.axelor.gst.db.Invoice" columnBy="status"
-    sequenceBy="priority" limit="10" onMove="project.task.kanban.on.move"
-    draggable="true"  >
+  </grid>
+
+
+  <kanban name="invoice-kanban" title="Invoice" model="com.axelor.gst.db.Invoice"
+    columnBy="status" sequenceBy="priority" limit="10"
+    onMove="project.task.kanban.on.move" draggable="true">
     <field name="reference" />
     <field name="invoiceDate" />
     <field name="party" />
@@ -91,24 +91,40 @@
     ]]></template>
   </kanban>
 
-  <action-attrs name="action-attrs-invoice-on-click-change-statusDraft">
-    <attribute name="value" for="status" expr="eval:status='draft'" />
+  <action-attrs name="action-attrs-invoice-on-click-change-status-draft">
+    <attribute name="value" for="statusSelect" expr="eval:'draft'" />
   </action-attrs>
 
-  <action-attrs name="action-attrs-invoice-on-click-change-statusValidated">
-    <attribute name="value" for="status" expr="eval:status='validated'" />
+  <action-attrs name="action-attrs-invoice-on-click-change-status-validated">
+    <attribute name="value" for="statusSelect" expr="eval:'validated'" />
   </action-attrs>
 
-  <action-attrs name="action-attrs-invoice-on-click-change-statusPaid">
-    <attribute name="value" for="status" expr="eval:status='paid'" />
+  <action-attrs name="action-attrs-invoice-on-click-change-status-paid">
+    <attribute name="value" for="statusSelect" expr="eval:'paid'" />
   </action-attrs>
 
-  <action-attrs name="action-attrs-invoice-on-click-change-statusCanceled">
-    <attribute name="value" for="status" expr="eval:status='cancelled'" />
+  <action-attrs name="action-attrs-invoice-on-click-change-status-canceled">
+    <attribute name="value" for="statusSelect" expr="eval:'cancelled'" />
   </action-attrs>
 
+  <!-- to set Default Shipping address  -->
+  <action-attrs name="action-attrs-invoice-on-change-set-shipping-address">
+    <attribute name="value" if="isInvoiceAddAsShippingAdd" for="shippingAddress" expr="eval:invoiceAddress" />
+  </action-attrs>
 
+  <action-record name="action-gst-invoice-record-set-company"
+    model="com.axelor.gst.db.Invoice">
+    <field name="company" expr="" />
+  </action-record>
 
+  <action-record name="action-gst-invoice-record-set-invoice-date"
+    model="com.axelor.gst.db.Invoice">
+    <field name="invoiceDateT" expr="eval:__datetime__" />
+  </action-record>
 
+  <action-method name="action-gst-invoice-record-set-primary-contact-in-party"
+    model="com.axelor.db.Invoice">
+    <call class="com.axelor.gst.db.web.InvoiceController" method="setPrimaryContactAndAddressInInvoice" />
+  </action-method>
 
 </object-views>

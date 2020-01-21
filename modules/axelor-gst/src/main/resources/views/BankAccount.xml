@@ -4,18 +4,17 @@
   xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
 
   <selection name="bankAccount.type.selection">
-    <option value="saving">Saving</option>
-    <option value="current">Current</option>
+    <option value="saving">saving</option>
+    <option value="current">current</option>
   </selection>
 
-
-  <form model="com.axelor.gst.db.BankAccount" title="Company"
+  <form model="com.axelor.gst.db.BankAccount" title="Bank Account"
     name="bankAccount-form">
     <panel itemSpan="6">
-      <field name="bank" title="Bank Name" />
-      <field name="accountNo"  />
-      <field name="ifsc" title="IFSC Code" />
-      <field name="type" title="Account Type" />
+      <field name="bank" />
+      <field name="accountNo" />
+      <field name="ifsc" />
+      <field name="typeSelect" />
     </panel>
     <panel colSpan="12" title="Bank Address Details">
       <field name="address" colSpan="12" />
@@ -27,9 +26,6 @@
     <field name="bank" />
     <field name="accountNo" />
     <field name="ifsc" />
-    <field name="type" />
+    <field name="typeSelect" />
   </grid>
-
-
-
 </object-views>

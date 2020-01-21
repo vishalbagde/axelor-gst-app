@@ -4,13 +4,13 @@
   xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
 
   <form model="com.axelor.gst.db.Sequence" title="Sequence" name="sequence-form">
-    <panel itemSpan="3" title="Sequence Details">
+    <panel itemSpan="6" title="Sequence Details" name="mainPanel">
       <field name="prefix"></field>
       <field name="suffix"></field>
       <field name="padding"></field>
       <field name="nextNumber"></field>
     </panel>
-    <panel colSpan="12">
+    <panel colSpan="12" name="modelPanel">
       <field name="model"></field>
     </panel>
   </form>

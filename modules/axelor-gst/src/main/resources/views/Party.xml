@@ -1,69 +1,82 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <object-views xmlns="http://axelor.com/xml/ns/object-views"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
 
-  <selection name="party.type.selection">
-    <option value="individual">Individual</option>
-    <option value="company">Company</option>
-  </selection>
+	<selection name="party.type.selection">
+		<option value="individual">Individual</option>
+		<option value="company">Company</option>
+	</selection>
 
-  <form model="com.axelor.gst.db.Party" title="Party" name="party-form"
-    onSave="com.axelor.gst.db.web.SequenceController:setReferenceInParty">
-    <panel itemSpan="6" title="Party Details">
-      <field name="reference" />
-      <field name="name" />
-    </panel>
-    <panel itemSpan="4" title="Area Details">
-      <field name="type" />
-      <field name="customer" />
-      <field name="supplier" />
-    </panel>
-    <panel itemSpan="12" title="GST Details">
-      <field name="gstin" />
-    </panel>
-    <panel-related field="contact" editable="true">
-      <field name="name" />
-      <field name="type" />
-    </panel-related>
-    <panel-related field="address" editable="true">
-      <field name="type" />
-      <field name="line1" />
-      <field name="line2" />
-      <field name="city" />
-      <field name="state" />
-      <field name="country" />
-      <field name="pinCode" />
-    </panel-related>
+	<form model="com.axelor.gst.db.Party" title="Party" name="party-form"
+		width="large" onSave="action-gst-party-method-on-save-set-reference">
+		<panel itemSpan="4" title="Party Details" name="overview">
+			<field name="reference" showIf="id" />
+			<field name="name" />
+			<field name="typeSelect" />
+			<field name="isCustomer" />
+			<field name="isSupplier" />
 
-  </form>
+		</panel>
+		<panel itemSpan="6" name="gstDetailsPanel">
+			<field name="gstin" />
+		</panel>
 
-  <grid model="com.axelor.gst.db.Party" title="Party" name="party-grid">
-    <field name="reference"></field>
-    <field name="name"></field>
-    <field name="type"></field>
-    <field name="customer"></field>
-    <field name="supplier"></field>
-    <field name="gstin"></field>
-  </grid>
+		<panel name="contactPanel">
+			<panel colSpan="6" itemSpan="6">
+				<field name="contactList">
+					<editor>
+						<field name="name" title="Contact Name"></field>
+						<field name="typeSelect" title="Contact Type"></field>
+						<field name="primaryEmail"></field>
+						<field name="secondaryEmail"></field>
+						<field name="primaryPhone"></field>
+						<field name="secondaryPhone"></field>
+					</editor>
+				</field>
+			</panel>
+			<panel colSpan="6">
+				<field name="addressList">
+					<editor>
+						<field name="typeSelect" />
+						<field name="line1" />
+						<field name="line2" />
+						<field name="city" />
+						<field name="state" />
+						<field name="country" />
+						<field name="pinCode" />
+					</editor>
+				</field>
+			</panel>
+		</panel>
+	</form>
 
-  <cards name="party-card" title="Party" model="com.axelor.gst.db.Party"
-    orderBy="name">
-    <field name="name" />
-    <field name="reference" />
-    <field name="type" />
-    <field name="address" />
-    <field name="customer" />
-    <field name="supplier" />
-    <field name="gstin" />
-    <template><![CDATA[
+	<grid model="com.axelor.gst.db.Party" title="Party Details" name="party-grid">
+		<field name="reference"></field>
+		<field name="name"></field>
+		<field name="typeSelect"></field>
+		<field name="isCustomer"></field>
+		<field name="isSupplier"></field>
+		<field name="gstin"></field>
+	</grid>
+
+	<cards name="party-card" title="Party" model="com.axelor.gst.db.Party"
+		orderBy="name">
+		<field name="name" />
+		<field name="reference" />
+		<field name="typeSelect" />
+		<field name="address" />
+		<field name="isCustomer" />
+		<field name="isSupplier" />
+		<field name="gstin" />
+		<template><![CDATA[
      <div class="span4" >
         <strong>{{gstin}}</strong>
           <strong>{{name}}</strong>
      </div>
      <div class="span4">
      <span ng-if="name" title="Name">Name:</span>{{name}}<br>
-     <span ng-if="type" title="Type">Type:</span>{{type}}<br>
+     <span ng-if="type" title="Type">Type:</span>{{typeSelect}}<br>
      <addresses>
          <strong> {{addresses.type}} : {{addresses.line1}}</strong><br>
          <span ng-if="addresses.city" title"City">City:</span>{{addresses.city.name}}<br>
@@ -72,8 +85,11 @@
       <span ng-if="contacts.name" title="<strong>Name <strong>">Contact :</span>{{contcats.name}}<br>
      </div>
    ]]></template>
-  </cards>
+	</cards>
 
 
-
+	<action-method name="action-gst-party-method-on-save-set-reference"
+		model="com.axelor.gst.db.Party">
+		<call  class="com.axelor.gst.db.web.SequenceController" method="setReferenceInParty" />
+	</action-method>
 </object-views>

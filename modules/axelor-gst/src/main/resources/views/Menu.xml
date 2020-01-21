@@ -30,7 +30,8 @@
   <menuitem title="Contact" name="menu-contact-all" parent="menu-party-main-all"
     action="menu-action-view-contact-all" />
 
-  <action-view name="menu-action-view-contact-all" model="com.axelor.gst.db.Contact" title="Contact">
+  <action-view name="menu-action-view-contact-all" model="com.axelor.gst.db.Contact"
+    title="Contact">
     <view type="grid" name="contact-grid" />
     <view type="form" name="contact-form" />
   </action-view>
@@ -110,25 +111,71 @@
   <menuitem title="Invoice" name="menu-invoice-main-all" parent="menu-gst-main-module" />
 
   <!--Menu Create Invoice -->
-  <menuitem title="Create Invoice" name="menu-create-invoice-all" parent="menu-invoice-main-all"
-    action="menu-action-view-create-invoice-all" />
+  <menuitem title="Create Invoice" name="menu-create-invoice-all"
+    parent="menu-invoice-main-all" action="menu-action-view-create-invoice-all" />
 
-  <action-view name="menu-action-view-create-invoice-all" title="Invoice"
-    model="com.axelor.gst.db.Invoice">
+  <action-view name="menu-action-view-create-invoice-all"
+    title="Invoice" model="com.axelor.gst.db.Invoice">
     <view type="form" name="invoice-form" />
+  </action-view>
+
+  <!--Menu Draft Invoice -->
+  <menuitem title="Draft Invoice" name="menu-draft-invoice-all"
+    parent="menu-invoice-main-all" action="menu-action-view-draft-invoice-all" />
+
+  <action-view name="menu-action-view-draft-invoice-all"
+    title="Draft Invoice" model="com.axelor.gst.db.Invoice">
+    <view type="grid" name="invoice-grid" />
+    <view type="form" name="invoice-form" />
+     <domain>self.statusSelect='draft'</domain>
+  </action-view>
+
+
+  <!--Menu Validated Invoice -->
+  <menuitem title="Validated Invoice" name="menu-validated-invoice-all"
+    parent="menu-invoice-main-all" action="menu-action-view-validated-invoice-all" />
+
+  <action-view name="menu-action-view-validated-invoice-all"
+    title="Validated Invoice" model="com.axelor.gst.db.Invoice">
+    <view type="grid" name="invoice-grid" />
+    <view type="form" name="invoice-form" />
+     <domain>self.statusSelect='validated'</domain>
+  </action-view>
+
+  <!--Menu Paid Invoice -->
+  <menuitem title="Paid Invoice" name="menu-paid-invoice-all"
+    parent="menu-invoice-main-all" action="menu-action-view-paid-invoice-all" />
+
+  <action-view name="menu-action-view-paid-invoice-all"
+    title="Paid Invoice" model="com.axelor.gst.db.Invoice">
+    <view type="grid" name="invoice-grid" />
+    <view type="form" name="invoice-form" />
+     <domain>self.statusSelect='paid'</domain>
+  </action-view>
+
+  <!--Menu cancelled Invoice -->
+  <menuitem title="cancelled Invoice" name="menu-cancelled-invoice-all"
+    parent="menu-invoice-main-all" action="menu-action-view-cancelled-invoice-all" ></menuitem>
+
+
+  <action-view name="menu-action-view-cancelled-invoice-all"
+    title="Cancelled Invoice" model="com.axelor.gst.db.Invoice">
+    <view type="grid" name="invoice-grid"/>
+    <view type="form" name="invoice-form" />
+     <domain>self.statusSelect='cancelled'</domain>
   </action-view>
 
 
   <!--Menu All Invoice -->
-  <menuitem title="All Invoice" name="menu-all-invoice-all" parent="menu-invoice-main-all"
-    action="menu-action-view-all-invoice-all" />
+  <menuitem title="All Invoice" name="menu-all-invoice-all"
+    parent="menu-invoice-main-all" action="menu-action-view-all-invoice-all" />
 
   <action-view name="menu-action-view-all-invoice-all" title="Invoice"
     model="com.axelor.gst.db.Invoice">
+    <view type="grid" name="invoice-grid" />
     <view type="form" name="invoice-form" />
     <view type="kanban" name="invoice-kanban" />
   </action-view>
-
 
   <!--MAIN Menu Company -->
   <menuitem title="Company" name="menu-company-main-all" parent="menu-gst-main-module"

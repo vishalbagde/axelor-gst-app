@@ -19,8 +19,7 @@ public class SequenceServiceImpl implements SequenceService {
     MetaModel m = metaModelRepo.findByName(model);
 
     Sequence sequence = sequenceRepo.findByModel(m);
-    
-    
+
     String seq = "";
     seq += sequence.getPrefix();
     seq += sequence.getNextNumber();
@@ -32,7 +31,7 @@ public class SequenceServiceImpl implements SequenceService {
     	seq += sequence.getSuffix();
     }
     */
-    sequence.setNextNumber(Integer.parseInt(sequence.getNextNumber())+sequence.getPadding() + "");
+    sequence.setNextNumber(Integer.parseInt(sequence.getNextNumber()) + sequence.getPadding() + "");
     sequenceRepo.persist(sequence);
     return seq;
   }

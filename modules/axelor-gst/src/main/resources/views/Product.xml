@@ -3,22 +3,19 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
 
-
-  <form model="com.axelor.gst.db.Product" title="Product" name="product-form">
+  <form model="com.axelor.gst.db.Product" title="Product" name="product-form" width="large">
     <panel title="Product Details" css="panel-red">
       <panel colSpan="4">
-        <field name="image" widget="Image" showTitle="false" colSpan="12"></field>
+        <field name="image" widget="Image" showTitle="false" ></field>
       </panel>
-      <panel colSpan="8">
-        <field name="code" colSpan="12" />
-        <field name="name" colSpan="12" />
-        <field name="hsbn" colSpan="12" />
+      <panel colSpan="8" itemSpan="8" name="productName">
+        <field name="code"/>
+        <field name="name"/>
+        <field name="hsbn"/>
+        <field name="category" onChange="action-gst-product-record-set-gst-rate" />
       </panel>
     </panel>
-    <panel colSpan="12">
-      <field name="category" />
-    </panel>
-    <panel itemSpan="4">
+    <panel itemSpan="4" name="productPricePanel">
       <field name="salePrice" />
       <field name="costPrice" />
       <field name="gstRate" />
@@ -33,7 +30,6 @@
     <field name="costPrice"></field>
     <field name="salePrice"></field>
   </grid>
-
 
 <cards name="product-card" title="Product" model="com.axelor.gst.db.Product"
     orderBy="name">
@@ -57,5 +53,10 @@
     ]]></template>
   </cards>
 
+
+  <action-record name="action-gst-product-record-set-gst-rate"
+    model="com.axelor.gst.db.Product">
+    <field name="gstRate" expr="eval:category.gstRate" />
+  </action-record>
 
 </object-views>

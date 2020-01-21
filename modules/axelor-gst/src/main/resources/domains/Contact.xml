@@ -5,12 +5,11 @@
 
   <module name="gst" package="com.axelor.gst.db" />
   <entity name="Contact">
-    <string name="name" required="true" />
-    <string name="type" selection="contact.type.selection" required="true"/>
-    <string name="primaryEmail"/>
-    <string name="secondaryEmail"/>
-    <string name="primaryPhone"/>
-    <string name="secondaryPhone"/>
+    <string name="name" required="true" title="Contact Name" />
+    <string name="typeSelect" selection="contact.type.selection" required="true" title="Contact Type"/>
+    <string name="primaryEmail" title="Primary Email"/>
+    <string name="secondaryEmail" title="Secondary Email"/>
+    <string name="primaryPhone" title="Primary Phone"/>
+    <string name="secondaryPhone" title="Secondary Phone"/>
   </entity>
-
 </domain-models>

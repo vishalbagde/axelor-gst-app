@@ -8,15 +8,16 @@ import com.google.inject.Inject;
 
 public class SequenceController {
 
-	@Inject
-	SequenceService sequenceService;
+  @Inject SequenceService sequenceService;
 
-	public void setReferenceInParty(ActionRequest request, ActionResponse response) {
-		Party party = request.getContext().asType(Party.class);
-		if (party.getReference().equals("")) {
-			String seq = sequenceService.getSequence("Party");
-			party.setReference(seq);
-			response.setValue("reference", seq);
-		}
-	}
+  public void setReferenceInParty(ActionRequest request, ActionResponse response) {
+    Party party = request.getContext().asType(Party.class);
+    
+    if(party.getId()==null)
+    {
+    String seq = sequenceService.getSequence("Party");
+    party.setReference(seq);
+    response.setValue("reference", seq);
+    }
+  }
 }

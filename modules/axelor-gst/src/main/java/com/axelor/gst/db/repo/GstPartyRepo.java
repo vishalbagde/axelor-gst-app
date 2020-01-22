@@ -3,7 +3,7 @@ package com.axelor.gst.db.repo;
 import com.axelor.gst.db.Party;
 import java.util.Map;
 
-public class PartyRepo extends PartyRepository {
+public class GstPartyRepo extends PartyRepository {
 
   @Override
   public Map<String, Object> populate(Map<String, Object> json, Map<String, Object> context) {

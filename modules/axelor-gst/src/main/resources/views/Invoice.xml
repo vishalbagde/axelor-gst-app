@@ -10,10 +10,15 @@
     <option value="cancelled">cancelled</option>
   </selection>
 
-  <form model="com.axelor.gst.db.Invoice" title="Invoice Details" width="large"
-    name="invoice-form"
-    onNew="action-gst-invoice-record-set-company,action-gst-invoice-record-set-invoice-date"
+  <form model="com.axelor.gst.db.Invoice" title="Invoice Details"
+    width="large" name="invoice-form"
+    onNew="action-gst-invoice-record-set-invoice-date"
     onSave="action-gst-invoice-method-on-save-set-reference">
+
+    <toolbar>
+      <button name="printInvoiceBtn" title="Print" hideIf="!id"
+        onClick="action-report-invoice-on-click-print-invoice" />
+    </toolbar>
 
     <panel name="invoiceStatusPanel">
       <field colSpan="12" name="statusSelect" widget="nav-select"
@@ -50,14 +55,12 @@
         onChange="action-attrs-invoice-on-change-set-shipping-address" />
       <field name="isInvoiceAddAsShippingAdd" colSpan="2"
         onChange="action-attrs-invoice-on-change-set-shipping-address" />
-<<<<<<< HEAD
-      <field name="shippingAddress" colSpan="5" hideIf="isInvoiceAddAsShippingAdd" />
-=======
-      <field name="shippingAddress" colSpan="5" />
->>>>>>> 967d63047b8060f6d62c523f09abf6fffe0b2984
+      <field name="shippingAddress" colSpan="5"
+        hideIf="isInvoiceAddAsShippingAdd" />
     </panel>
 
-    <panel-related field="invoiceLineList" css="panel-green" onChange="action-gst-invoice-line-method-on-new-set-total" >
+    <panel-related field="invoiceLineList" css="panel-green"
+      onChange="action-gst-invoice-line-method-on-new-set-total">
     </panel-related>
 
     <panel colSpan="12" colOffset="2" css="panel-green" name="totalDetailsPanel">
@@ -116,11 +119,6 @@
       expr="eval:invoiceAddress" />
   </action-attrs>
 
-  <action-record name="action-gst-invoice-record-set-company"
-    model="com.axelor.gst.db.Invoice">
-    <field name="company" expr="" />
-  </action-record>
-
   <action-record name="action-gst-invoice-record-set-invoice-date"
     model="com.axelor.gst.db.Invoice">
     <field name="invoiceDateT" expr="eval:__datetime__" />
@@ -133,12 +131,18 @@
 
   <action-method name="action-gst-invoice-method-on-save-set-reference"
     model="com.axelor.gst.db.Invoice">
-    <call  class="com.axelor.gst.db.web.SequenceController" method="setReferenceInInvoice" />
+    <call class="com.axelor.gst.db.web.SequenceController" method="setReferenceInInvoice" />
   </action-method>
 
   <action-method name="action-gst-invoice-line-method-on-new-set-total"
     model="com.axelor.gst.db.Invoice">
-    <call  class="com.axelor.gst.db.web.InvoiceController" method="setTotalInInvoice" />
+    <call class="com.axelor.gst.db.web.InvoiceController" method="setTotalInInvoice" />
   </action-method>
+
+
+  <action-report output="${date}${time}" name="action-report-invoice-on-click-print-invoice"
+    design="invoice_report.rptdesign">
+    <param name="invoiceId" expr="eval: id" />
+  </action-report>
 
 </object-views>

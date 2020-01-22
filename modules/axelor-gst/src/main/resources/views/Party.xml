@@ -87,9 +87,8 @@
    ]]></template>
   </cards>
 
-
   <action-method name="action-gst-party-method-on-save-set-reference"
     model="com.axelor.gst.db.Party">
-    <call  class="com.axelor.gst.db.web.SequenceController" method="setReferenceInParty" />
+    <call class="com.axelor.gst.db.web.SequenceController" method="setReferenceInParty" />
   </action-method>
 </object-views>

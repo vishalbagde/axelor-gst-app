@@ -3,12 +3,19 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
 
+  <!-- Main Menu -->
   <menuitem title="GST MODULE" name="menu-gst-main-module"
     icon-background="blue" icon="fa-money" />
 
-  <!-- DASHBOARD -->
+  <!--Main Menu  DASHBOARD -->
   <menuitem title="DASHBOARD" name="menu-gst-module-dashboard"
-    icon="fa-dashboard" parent="menu-gst-main-module" order="-90" />
+    icon="fa-dashboard" parent="menu-gst-main-module" action="dashboard-gst-all" order="-90" />
+
+  <action-view name="dashboard-gst-all" title="Dashboard"
+    model="com.axelor.gst.db.Invoice">
+    <view type="dashboard" name="dashboard-gst-main" />
+  </action-view>
+
 
   <!--MAIN PARTY -->
   <menuitem title="Party" name="menu-party-main-all" parent="menu-gst-main-module"
@@ -83,7 +90,8 @@
 
 
   <!--MAIN Menu Product -->
-  <menuitem title="Product" name="menu-product-main-all" parent="menu-gst-main-module" />
+  <menuitem title="Product" name="menu-product-main-all" parent="menu-gst-main-module"
+    icon="fa-product-hunt " />
 
   <!--Menu Product -->
   <menuitem title="Product" name="menu-product-all" parent="menu-product-main-all"
@@ -108,7 +116,8 @@
 
 
   <!--MAIN Menu Invoice -->
-  <menuitem title="Invoice" name="menu-invoice-main-all" parent="menu-gst-main-module" />
+  <menuitem title="Invoice" name="menu-invoice-main-all" parent="menu-gst-main-module"
+    icon="fa-files-o" />
 
   <!--Menu Create Invoice -->
   <menuitem title="Create Invoice" name="menu-create-invoice-all"
@@ -127,7 +136,7 @@
     title="Draft Invoice" model="com.axelor.gst.db.Invoice">
     <view type="grid" name="invoice-grid" />
     <view type="form" name="invoice-form" />
-     <domain>self.statusSelect='draft'</domain>
+    <domain>self.statusSelect='draft'</domain>
   </action-view>
 
 
@@ -139,7 +148,7 @@
     title="Validated Invoice" model="com.axelor.gst.db.Invoice">
     <view type="grid" name="invoice-grid" />
     <view type="form" name="invoice-form" />
-     <domain>self.statusSelect='validated'</domain>
+    <domain>self.statusSelect='validated'</domain>
   </action-view>
 
   <!--Menu Paid Invoice -->
@@ -150,19 +159,19 @@
     title="Paid Invoice" model="com.axelor.gst.db.Invoice">
     <view type="grid" name="invoice-grid" />
     <view type="form" name="invoice-form" />
-     <domain>self.statusSelect='paid'</domain>
+    <domain>self.statusSelect='paid'</domain>
   </action-view>
 
   <!--Menu cancelled Invoice -->
   <menuitem title="cancelled Invoice" name="menu-cancelled-invoice-all"
-    parent="menu-invoice-main-all" action="menu-action-view-cancelled-invoice-all" ></menuitem>
+    parent="menu-invoice-main-all" action="menu-action-view-cancelled-invoice-all"></menuitem>
 
 
   <action-view name="menu-action-view-cancelled-invoice-all"
     title="Cancelled Invoice" model="com.axelor.gst.db.Invoice">
-    <view type="grid" name="invoice-grid"/>
+    <view type="grid" name="invoice-grid" />
     <view type="form" name="invoice-form" />
-     <domain>self.statusSelect='cancelled'</domain>
+    <domain>self.statusSelect='cancelled'</domain>
   </action-view>
 
 
@@ -197,7 +206,7 @@
     parent="menu-company-main-all" action="menu-action-view-bank-account-all" />
 
   <action-view name="menu-action-view-bank-account-all"
-    title="Bank Account" model="com.axelor.gst.db.bankAccount">
+    title="Bank Account" model="com.axelor.gst.db.BankAccount">
     <view type="grid" name="bank-account-grid" />
     <view type="form" name="bank-account-form" />
   </action-view>
@@ -211,6 +220,5 @@
     <view type="grid" name="sequence-grid" />
     <view type="form" name="sequence-form" />
   </action-view>
-
 
 </object-views>

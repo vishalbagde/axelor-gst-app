@@ -23,6 +23,11 @@
   </form>
 
   <grid model="com.axelor.gst.db.Product" title="Product" name="product-grid" >
+  <toolbar>
+  <button name="createInvoiceBtn" title="Create Invoice" />
+  <button name="printBtn" title="Print" onClick="action-report-product-on-click-print-product"/>
+  </toolbar>
+
     <field name="code"></field>
     <field name="name"></field>
     <field name="hsbn"></field>
@@ -58,5 +63,9 @@
     model="com.axelor.gst.db.Product">
     <field name="gstRate" expr="eval:category.gstRate" />
   </action-record>
+
+  <action-report output="${date}${time}" name="action-report-product-on-click-print-product"
+    design="product_report.rptdesign">
+  </action-report>
 
 </object-views>

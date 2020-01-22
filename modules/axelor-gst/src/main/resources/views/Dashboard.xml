@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
+
+  <dashboard name="dashboard-gst-main" title="GST Dashboard">
+    <dashlet action="chart:chart.gst.invoice.unpaid.customer"
+      colSpan="6" />
+  </dashboard>
+
+  <chart name="chart.gst.invoice.unpaid.customer" title="Total Unpaid Customer">
+    <search-fields>
+      <field name="toDate" type="datetime" title="To Date"
+        x-required="true" />
+      <field name="fromDate" type="datetime" title="From Date"
+        x-required="true" />
+    </search-fields>
+
+    <dataset type="sql">
+     <![CDATA[
+
+     select  party.name,count(invoice.id) from gst_invoice as invoice
+  left join gst_party as party on invoice.party=party.id where
+  (invoice.status_select like 'draft' OR invoice.status_select like 'validated')
+  and
+  (DATE(invoice_datet) >= DATE(:toDate)
+  and
+  DATE(invoice_datet) <= DATE(:fromDate)
+  )
+  group by party.name
+      ]]>
+    </dataset>
+    <category key="customer" type="text" />
+    <series key="total_customer" type="bar" />
+  </chart>
+
+</object-views>

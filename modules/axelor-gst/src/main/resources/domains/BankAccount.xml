@@ -8,7 +8,7 @@
     <string name="bank" required="true" title="Bank Name"/>
     <string name="accountNo" required="true" title="Account No"/>
     <string name="ifsc" required="true"  title="IFSC Code"/>
-    <string name="typeSelect" selection="bankAccount.type.selection" default="Current" title="Bank Account Type" />
+    <string name="typeSelect" selection="bank.account.type.selection" default="Current" title="Bank Account Type" />
     <string name="address" multiline="true" title="Bank Address"/>
   </entity>
 </domain-models>

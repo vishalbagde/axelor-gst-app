@@ -16,15 +16,17 @@ public class SequenceController {
 
     if (party.getReference() == null) {
       String seq = sequenceService.getSequence("Party");
-      party.setReference(seq);
-      response.setValue("reference", seq);
+      if (seq != null) {
+        party.setReference(seq);
+        response.setValue("reference", seq);
+      } else {
+        response.setFlash("Sequence Not Available");
+      }
     }
   }
 
   public void setReferenceInInvoice(ActionRequest request, ActionResponse response) {
-
     Invoice invoice = request.getContext().asType(Invoice.class);
-
     if (invoice.getReference() == null) {
       String seq = sequenceService.getSequence("Invoice");
       invoice.setReference(seq);

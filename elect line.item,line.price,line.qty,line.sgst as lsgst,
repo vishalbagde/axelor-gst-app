@@ -1,0 +1,44 @@
+                                  Table "public.gst_invoice"
+             Column             |            Type             | Collation | Nullable | Default 
+--------------------------------+-----------------------------+-----------+----------+---------
+ id                             | bigint                      |           | not null | 
+ archived                       | boolean                     |           |          | 
+ version                        | integer                     |           |          | 
+ created_on                     | timestamp without time zone |           |          | 
+ updated_on                     | timestamp without time zone |           |          | 
+ attrs                          | jsonb                       |           |          | 
+ cgst                           | numeric(19,2)               |           |          | 
+ gross_amount                   | numeric(19,2)               |           |          | 
+ igst                           | numeric(19,2)               |           |          | 
+ invoice_datet                  | timestamp without time zone |           |          | 
+ is_invoice_add_as_shipping_add | boolean                     |           |          | 
+ net_amount                     | numeric(19,2)               |           |          | 
+ priority                       | integer                     |           |          | 
+ reference                      | character varying(255)      |           |          | 
+ sgst                           | numeric(19,2)               |           |          | 
+ status_select                  | character varying(255)      |           |          | 
+ created_by                     | bigint                      |           |          | 
+ updated_by                     | bigint                      |           |          | 
+ company                        | bigint                      |           | not null | 
+ invoice_address                | bigint                      |           |          | 
+ party                          | bigint                      |           | not null | 
+ party_contact                  | bigint                      |           |          | 
+ shipping_address               | bigint                      |           |          | 
+Indexes:
+    "gst_invoice_pkey" PRIMARY KEY, btree (id)
+    "gst_invoice_company_idx" btree (company)
+    "gst_invoice_invoice_address_idx" btree (invoice_address)
+    "gst_invoice_party_contact_idx" btree (party_contact)
+    "gst_invoice_party_idx" btree (party)
+    "gst_invoice_shipping_address_idx" btree (shipping_address)
+Foreign-key constraints:
+    "fk_836x90ga3m0kom67c4eav69y3" FOREIGN KEY (company) REFERENCES gst_company(id)
+    "fk_95epqu509uek6l4pld8ley3vq" FOREIGN KEY (invoice_address) REFERENCES gst_address(id)
+    "fk_bsgkfg38pp9mi35995houlxme" FOREIGN KEY (created_by) REFERENCES auth_user(id)
+    "fk_cw9997sqw9k8evob6xjxmw5ae" FOREIGN KEY (party) REFERENCES gst_party(id)
+    "fk_i90g8onabbhpenj8u3v8ykw93" FOREIGN KEY (shipping_address) REFERENCES gst_address(id)
+    "fk_kmudlikqfk44dif376kyt2nqu" FOREIGN KEY (party_contact) REFERENCES gst_contact(id)
+    "fk_qvkj3u7el88o6fn594l7c7en8" FOREIGN KEY (updated_by) REFERENCES auth_user(id)
+Referenced by:
+    TABLE "gst_invoice_line" CONSTRAINT "fk_8s8h04il9st1vovcyy7clltpo" FOREIGN KEY (invoice) REFERENCES gst_invoice(id)
+

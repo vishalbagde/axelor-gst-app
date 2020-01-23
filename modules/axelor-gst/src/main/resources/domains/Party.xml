@@ -14,6 +14,5 @@
     <string name="gstin" min="15" max="15"/>
     <one-to-many name="contactList" ref="Contact"/>
     <one-to-many name="addressList" ref="Address"/>
-
   </entity>
 </domain-models>

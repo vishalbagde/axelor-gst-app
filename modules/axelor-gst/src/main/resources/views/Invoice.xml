@@ -13,7 +13,7 @@
   <form model="com.axelor.gst.db.Invoice" title="Invoice Details"
     width="large" name="invoice-form"
     onNew="action-gst-invoice-record-set-invoice-date"
-    onSave="action-gst-invoice-method-on-save-set-reference">
+    onSave="action-invoice-order-validate,action-gst-invoice-method-on-save-set-reference,action-gst-invoice-method-on-save-verify-data">
 
     <toolbar>
       <button name="printInvoiceBtn" title="Print" hideIf="!id"
@@ -46,7 +46,8 @@
 
     <panel itemSpan="6" name="partyDetailsPanel">
       <field name="party"
-        onChange="action-gst-invoice-record-set-primary-contact-in-party,action-attrs-invoice-on-change-set-shipping-address" />
+        onChange="action-gst-invoice-record-set-primary-contact-in-party,action-attrs-invoice-on-change-set-shipping-address,action-gst-attrs-invoice-on-select-set-contact" 
+         />
       <field name="partyContact" />
     </panel>
 
@@ -59,7 +60,7 @@
         hideIf="isInvoiceAddAsShippingAdd" />
     </panel>
 
-    <panel-related field="invoiceLineList" css="panel-green"
+    <panel-related field="invoiceLineList" css="panel-green" readonlyIf="company==null &amp;&amp;  party==null"
       onChange="action-gst-invoice-line-method-on-new-set-total">
     </panel-related>
 
@@ -82,17 +83,19 @@
   </grid>
 
   <kanban name="invoice-kanban" title="Invoice" model="com.axelor.gst.db.Invoice"
-    columnBy="status" sequenceBy="priority" limit="10"
-    onMove="project.task.kanban.on.move" draggable="true">
+    columnBy="statusSelect" sequenceBy="priority" limit="10" draggable="true">
     <field name="reference" />
-    <field name="invoiceDate" />
-    <field name="party" />
+    <field name="invoiceDateT" />
     <field name="grossAmount" />
+    <field name="image" />
+    <field name="user"/>
+    <field name="partyName"/>
     <template><![CDATA[
-    <h4>{{reference}}</h4>
-    <div class="card-body">{{party}}</div>
+    <h4 class="pull-right label-success">{{reference}}</h4>
+    <div class="card-body">{{partyName}}</div>
+    <div class="card-body"><h4>{{grossAmount}}</h4></div>
     <div class="card-footer">
-        <span>{{invoiceDate|date:'yyyy-MM-dd HH:mm:ss'}}</span>
+      <i class='fa fa-clock-o'></i> <span>{{invoiceDateT|date:'yyyy-MM-dd'}}</span>
     </div>
     ]]></template>
   </kanban>
@@ -139,10 +142,24 @@
     <call class="com.axelor.gst.db.web.InvoiceController" method="setTotalInInvoice" />
   </action-method>
 
+  <action-method name="action-gst-invoice-method-on-save-verify-data"
+    model="com.axelor.gst.db.Invoice">
+    <call class="com.axelor.gst.db.web.InvoiceController" method="setVerifyTotalInInvoice" />
+  </action-method>
 
   <action-report output="${date}${time}" name="action-report-invoice-on-click-print-invoice"
     design="invoice_report.rptdesign">
     <param name="invoiceId" expr="eval: id" />
   </action-report>
 
+  <action-condition  name="action-invoice-order-validate">
+     <check field="invoiceDateT"  error="Select Valid Invoice Date" if="invoiceDateT==null"/>
+  </action-condition>
+  
+  <action-attrs name="action-gst-attrs-invoice-on-select-set-contact">
+		<attribute name="domain" for="partyContact" expr="eval: party?.contactList?.collect{it.id}?.size() > 0 ? &quot;self.id IN (${party?.contactList?.collect{it.id}?.join(',')})&quot; :null"/>
+		<attribute name="domain" for="invoiceAddress" expr="eval: party?.addressList?.collect{it.id}?.size() > 0 ? &quot;self.id IN (${party?.addressList?.collect{it.id}?.join(',')})&quot; : null"/>
+		<attribute name="domain" for="shippingAddress" expr="eval: party?.addressList?.collect{it.id}?.size() > 0 ? &quot;self.id IN (${party?.addressList?.collect{it.id}?.join(',')})&quot; : null"/>
+  </action-attrs>
+  
 </object-views>

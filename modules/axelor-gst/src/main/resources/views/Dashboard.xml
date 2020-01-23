@@ -6,32 +6,89 @@
   <dashboard name="dashboard-gst-main" title="GST Dashboard">
     <dashlet action="chart:chart.gst.invoice.unpaid.customer"
       colSpan="6" />
+    <dashlet action="chart:chart.gst.state.per.customer" colSpan="6" />
+    <dashlet action="chart:chart.gst.invoice.per.status" colSpan="6" />
+    <dashlet action="dashlet.gst.dashboard.older.invoice" colSpan="12"/>
   </dashboard>
 
-  <chart name="chart.gst.invoice.unpaid.customer" title="Total Unpaid Customer">
+
+  <action-view name="dashlet.gst.dashboard.older.invoice" title="Older Invoice" model="com.axelor.gst.db.Invoice">
+    <view type="grid" name="invoice-grid"/>
+    <view type="form" name="invoice-form"/>
+    <domain>self.statusSelect = 'validated' and self.invoiceDateT &lt;= :_lastMonth </domain>
+    <context name="_lastMonth" expr="eval:__datetime__.minusMonths(1)"/>
+  </action-view>
+
+
+  <chart name="chart.gst.invoice.unpaid.customer" title="Total Unpaid Customer"
+    onInit="action.gst.chart.unpaid.customer.set.date">
     <search-fields>
-      <field name="toDate" type="datetime" title="To Date"
+      <field name="toDateT" type="datetime" title="To Date"
         x-required="true" />
-      <field name="fromDate" type="datetime" title="From Date"
+      <field name="fromDateT" type="datetime" title="From Date"
         x-required="true" />
     </search-fields>
-
     <dataset type="sql">
      <![CDATA[
-
-     select  party.name,count(invoice.id) from gst_invoice as invoice
-  left join gst_party as party on invoice.party=party.id where
-  (invoice.status_select like 'draft' OR invoice.status_select like 'validated')
-  and
-  (DATE(invoice_datet) >= DATE(:toDate)
-  and
-  DATE(invoice_datet) <= DATE(:fromDate)
-  )
-  group by party.name
+       select
+       party.name as customer,
+       count(invoice.id) as total_customer
+       from gst_invoice as invoice
+        left join gst_party as party on invoice.party=party.id where
+        (invoice.status_select like 'draft' OR invoice.status_select like 'validated')
+      and
+        (DATE(invoice_datet) >= DATE(:toDateT)
+        and
+        DATE(invoice_datet) <= DATE(:fromDateT))
+        group by party.name
       ]]>
     </dataset>
     <category key="customer" type="text" />
     <series key="total_customer" type="bar" />
   </chart>
+
+  <action-record name="action.gst.chart.unpaid.customer.set.date"
+    model="com.axelor.gst.db.Invoice">
+    <field name="toDateT" expr="eval:LocalDate.now().withDayOfMonth(1)" />
+    <field name="fromDateT" expr="eval:__datetime__" />
+  </action-record>
+
+  <chart name="chart.gst.state.per.customer" title="State Wise Customer">
+
+    <dataset type="sql">
+     <![CDATA[
+      select state.name as state,count(state.id) as total
+      from gst_party_address_list as address_list
+      left join gst_party as party on
+      address_list.gst_party=party.id
+      left join gst_address as address
+      on address_list.address_list=address.id
+      left join gst_state as state
+      on address.state=state.id group by state.name;
+      ]]>
+    </dataset>
+    <category key="state" type="text" />
+    <series key="total" type="pie" />
+  </chart>
+
+
+
+  <chart name="chart.gst.invoice.per.status" title="Invoice Per Status">
+    <dataset type="sql">
+     <![CDATA[
+      select
+      status_select as status,
+      sum(gross_amount) as total,
+      count(id) as status_count
+      from gst_invoice
+      group by status_select
+      ]]>
+    </dataset>
+    <category key="status" type="text" />
+    <series key="status_count" type="line" />
+    <series key="total" type="bar" />
+
+  </chart>
+
 
 </object-views>

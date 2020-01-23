@@ -9,5 +9,4 @@
     <string name="state" title="State" />
     <string name="country" title="Country" />
   </entity>
-
 </domain-models>

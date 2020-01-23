@@ -7,5 +7,4 @@
   <entity name="Country">
     <string name="name" required="true" title="Country Name" />
   </entity>
-
 </domain-models>

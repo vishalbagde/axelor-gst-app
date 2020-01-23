@@ -65,24 +65,23 @@
     <field name="name" />
     <field name="reference" />
     <field name="typeSelect" />
-    <field name="address" />
+    <field name="addresses" />
     <field name="isCustomer" />
     <field name="isSupplier" />
     <field name="gstin" />
     <template><![CDATA[
      <div class="span4" >
-        <strong>{{gstin}}</strong>
-          <strong>{{name}}</strong>
+       <h4 class="txt-info">GSTNO:</h4>
+        <h4 class="text-info"><strong>{{gstin}}</strong></h4>
+        <h4> <span class="label label-important" ng-show="record.isCustomer" x-translate>Customer</span> </h4>
+        <h4> <span class="label label-info" ng-show="record.isSupplier" x-translate>Supplier</span> </h4>
      </div>
      <div class="span4">
      <span ng-if="name" title="Name">Name:</span>{{name}}<br>
-     <span ng-if="type" title="Type">Type:</span>{{typeSelect}}<br>
-     <addresses>
-         <strong> {{addresses.type}} : {{addresses.line1}}</strong><br>
-         <span ng-if="addresses.city" title"City">City:</span>{{addresses.city.name}}<br>
-      </addresses>
+     <span ng-if="typeSelect" title="Type">Type:</span>{{typeSelect}}<br>
       <contacts>
-      <span ng-if="contacts.name" title="<strong>Name <strong>">Contact :</span>{{contcats.name}}<br>
+        <span ng-if="contacts.name" title="<strong>Name <strong>">Contact :</span>{{contcats.name}}<br>
+      </contacts>
      </div>
    ]]></template>
   </cards>

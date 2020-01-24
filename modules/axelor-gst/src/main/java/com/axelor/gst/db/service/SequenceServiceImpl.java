@@ -4,7 +4,6 @@ import com.axelor.gst.db.Sequence;
 import com.axelor.gst.db.repo.SequenceRepository;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
-
 public class SequenceServiceImpl implements SequenceService {
 
   @Inject SequenceRepository sequenceRepo;

@@ -23,21 +23,21 @@
     </panel>
 
     <panel name="contactPanel">
-      <panel colSpan="6" itemSpan="6">
-        <field name="contactList">
-          <editor>
-            <field name="name" title="Contact Name"></field>
-            <field name="typeSelect" title="Contact Type"></field>
-            <field name="primaryEmail"></field>
-            <field name="secondaryEmail"></field>
-            <field name="primaryPhone"></field>
-            <field name="secondaryPhone"></field>
+      <panel colSpan="6" title="Contact Details" >
+        <field name="contactList" >
+          <editor itemSpan="6" x-viewer="true">
+            <field name="name"/>
+            <field name="typeSelect"/>
+            <field name="primaryEmail"/>
+            <field name="secondaryEmail"/>
+            <field name="primaryPhone"/>
+            <field name="secondaryPhone"/>
           </editor>
         </field>
       </panel>
-      <panel colSpan="6">
+      <panel colSpan="6" title="Address Details" >
         <field name="addressList">
-          <editor>
+          <editor x-viewer="true">
             <field name="typeSelect" />
             <field name="line1" />
             <field name="line2" />

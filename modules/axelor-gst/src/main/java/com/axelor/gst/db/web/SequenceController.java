@@ -24,7 +24,7 @@ public class SequenceController {
       }
     }
   }
-
+  
   public void setReferenceInInvoice(ActionRequest request, ActionResponse response) {
     Invoice invoice = request.getContext().asType(Invoice.class);
     if (invoice.getReference() == null) {

@@ -1704,6 +1704,7 @@ where invoice.id=?
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                         <label id="462">
+                            <property name="fontWeight">bold</property>
                             <property name="textAlign">right</property>
                             <text-property name="text">PRICE</text-property>
                         </label>
@@ -1714,6 +1715,7 @@ where invoice.id=?
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                         <label id="464">
+                            <property name="fontWeight">bold</property>
                             <property name="textAlign">right</property>
                             <text-property name="text">QTY</text-property>
                         </label>
@@ -1724,6 +1726,7 @@ where invoice.id=?
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                         <label id="466">
+                            <property name="fontWeight">bold</property>
                             <property name="textAlign">right</property>
                             <text-property name="text">SGST</text-property>
                         </label>
@@ -1734,6 +1737,7 @@ where invoice.id=?
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                         <label id="468">
+                            <property name="fontWeight">bold</property>
                             <property name="textAlign">right</property>
                             <text-property name="text">CGST</text-property>
                         </label>
@@ -1744,6 +1748,7 @@ where invoice.id=?
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                         <label id="470">
+                            <property name="fontWeight">bold</property>
                             <property name="textAlign">right</property>
                             <text-property name="text">IGST</text-property>
                         </label>
@@ -1754,6 +1759,7 @@ where invoice.id=?
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                         <label id="472">
+                            <property name="fontWeight">bold</property>
                             <property name="textAlign">right</property>
                             <text-property name="text">NET AMT</text-property>
                         </label>
@@ -1764,6 +1770,7 @@ where invoice.id=?
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                         <label id="474">
+                            <property name="fontWeight">bold</property>
                             <property name="textAlign">right</property>
                             <text-property name="text">GROSS AMOUNT</text-property>
                         </label>

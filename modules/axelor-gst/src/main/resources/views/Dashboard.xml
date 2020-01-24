@@ -3,14 +3,13 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
 
-  <dashboard name="dashboard-gst-main" title="GST Dashboard">
-    <dashlet action="chart:chart.gst.invoice.unpaid.customer"
-      colSpan="6" />
+  <dashboard name="dashboard-gst-main" title="GST Dashboard" >
+    <dashlet action="chart:chart.gst.invoice.unpaid.customer" colSpan="6" />
     <dashlet action="chart:chart.gst.state.per.customer" colSpan="6" />
     <dashlet action="chart:chart.gst.invoice.per.status" colSpan="6" />
+    <dashlet action="chart:chart.gst.invoice.per.status.line" colSpan="6" />
     <dashlet action="dashlet.gst.dashboard.older.invoice" colSpan="12"/>
   </dashboard>
-
 
   <action-view name="dashlet.gst.dashboard.older.invoice" title="Older Invoice" model="com.axelor.gst.db.Invoice">
     <view type="grid" name="invoice-grid"/>
@@ -18,7 +17,6 @@
     <domain>self.statusSelect = 'validated' and self.invoiceDateT &lt;= :_lastMonth </domain>
     <context name="_lastMonth" expr="eval:__datetime__.minusMonths(1)"/>
   </action-view>
-
 
   <chart name="chart.gst.invoice.unpaid.customer" title="Total Unpaid Customer"
     onInit="action.gst.chart.unpaid.customer.set.date">
@@ -71,8 +69,6 @@
     <series key="total" type="pie" />
   </chart>
 
-
-
   <chart name="chart.gst.invoice.per.status" title="Invoice Per Status">
     <dataset type="sql">
      <![CDATA[
@@ -85,10 +81,24 @@
       ]]>
     </dataset>
     <category key="status" type="text" />
-    <series key="status_count" type="line" />
     <series key="total" type="bar" />
-
+    <series key="status_count" type="line" />
   </chart>
-
-
+  
+  
+  <chart name="chart.gst.invoice.per.status.line" title="Invoice Per Status Line Chart">
+    <dataset type="sql">
+     <![CDATA[
+      select
+      status_select as status,
+      sum(gross_amount) as total,
+      count(id) as status_count
+      from gst_invoice
+      group by status_select
+      ]]>
+    </dataset>
+    <category key="status" type="text" />
+    <series key="status_count" type="line" />
+  </chart>
+  
 </object-views>

@@ -54,27 +54,36 @@ public class InvoiceController {
     Invoice invoice = request.getContext().asType(Invoice.class);
     List<InvoiceLine> invoiceLineList = invoice.getInvoiceLineList();
 
-    double cgst = 0, sgst = 0, igst = 0, netTotal = 0, grossTotal = 0;
+    // double cgst = 0, sgst = 0, igst = 0, netTotal = 0, grossTotal = 0;
+
+    BigDecimal cgst = BigDecimal.ZERO;
+    BigDecimal sgst = BigDecimal.ZERO;
+    BigDecimal igst = BigDecimal.ZERO;
+    BigDecimal netTotal = BigDecimal.ZERO;
+    BigDecimal grossTotal = BigDecimal.ZERO;
 
     for (InvoiceLine invoiceLine : invoiceLineList) {
-
-      netTotal += invoiceLine.getNetAmount().doubleValue();
-      sgst += invoiceLine.getSgst().doubleValue();
-      cgst += invoiceLine.getCgst().doubleValue();
-      igst += invoiceLine.getIgst().doubleValue();
-      grossTotal += invoiceLine.getGrossAmount().floatValue();
+      netTotal = netTotal.add(invoiceLine.getNetAmount());
+      sgst = sgst.add(invoiceLine.getSgst());
+      cgst = cgst.add(invoiceLine.getCgst());
+      igst = igst.add(invoiceLine.getIgst());
+      grossTotal = grossTotal.add(invoiceLine.getGrossAmount());
     }
-    response.setValue("igst", BigDecimal.valueOf(igst));
-    response.setValue("cgst", BigDecimal.valueOf(cgst));
-    response.setValue("sgst", BigDecimal.valueOf(sgst));
-    response.setValue("netAmount", BigDecimal.valueOf(netTotal));
-    response.setValue("grossAmount", BigDecimal.valueOf(grossTotal));
+    response.setValue("igst", igst);
+    response.setValue("cgst", cgst);
+    response.setValue("sgst", sgst);
+    response.setValue("netAmount", netTotal);
+    response.setValue("grossAmount", grossTotal);
   }
 
   public void setVerifyTotalInInvoice(ActionRequest request, ActionResponse response) {
     Invoice invoice = request.getContext().asType(Invoice.class);
     List<InvoiceLine> invoiceLineList = invoice.getInvoiceLineList();
-    double cgst = 0, sgst = 0, igst = 0, netTotal = 0, grossTotal = 0;
+    BigDecimal cgst = BigDecimal.ZERO;
+    BigDecimal sgst = BigDecimal.ZERO;
+    BigDecimal igst = BigDecimal.ZERO;
+    BigDecimal netTotal = BigDecimal.ZERO;
+    BigDecimal grossTotal = BigDecimal.ZERO;
 
     if (invoice.getCompany() != null && invoice.getInvoiceAddress() != null) {
 
@@ -88,35 +97,38 @@ public class InvoiceController {
         invoiceLine.setCgst(BigDecimal.valueOf(0));
         invoiceLine.setIgst(BigDecimal.valueOf(0));
 
-        double gstAmount = 0;
+        BigDecimal gstAmount = BigDecimal.ZERO;
         invoiceLine.setNetAmount(
             BigDecimal.valueOf(
                 invoiceLine.getPrice().doubleValue() * invoiceLine.getQty().doubleValue()));
         gstAmount =
-            invoiceLine.getNetAmount().doubleValue() * invoiceLine.getGstRate().doubleValue() / 100;
+            invoiceLine
+                .getNetAmount()
+                .multiply(invoiceLine.getGstRate())
+                .divide(BigDecimal.valueOf(100));
+
         if (companyAddress.getState().equals(partyAddress.getState())) {
-          invoiceLine.setSgst(BigDecimal.valueOf(gstAmount / 2));
-          invoiceLine.setCgst(BigDecimal.valueOf(gstAmount / 2));
+          invoiceLine.setSgst(gstAmount.divide(BigDecimal.valueOf(2)));
+          invoiceLine.setCgst(gstAmount.divide(BigDecimal.valueOf(2)));
         } else {
-          invoiceLine.setIgst(BigDecimal.valueOf(gstAmount));
+          invoiceLine.setIgst(gstAmount);
         }
-        invoiceLine.setGrossAmount(
-            BigDecimal.valueOf(invoiceLine.getNetAmount().doubleValue() + gstAmount));
+        invoiceLine.setGrossAmount(invoiceLine.getNetAmount().add(gstAmount));
 
         invoiceLineList.set(i, invoiceLine);
 
-        netTotal += invoiceLine.getNetAmount().doubleValue();
-        sgst += invoiceLine.getSgst().doubleValue();
-        cgst += invoiceLine.getCgst().doubleValue();
-        igst += invoiceLine.getIgst().doubleValue();
-        grossTotal += invoiceLine.getGrossAmount().floatValue();
+        netTotal = netTotal.add(invoiceLine.getNetAmount());
+        sgst = sgst.add(invoiceLine.getSgst());
+        cgst = cgst.add(invoiceLine.getCgst());
+        igst = igst.add(invoiceLine.getIgst());
+        grossTotal = grossTotal.add(invoiceLine.getGrossAmount());
       }
       invoice.setInvoiceLineList(invoiceLineList);
-      invoice.setIgst(BigDecimal.valueOf(igst));
-      invoice.setCgst(BigDecimal.valueOf(cgst));
-      invoice.setSgst(BigDecimal.valueOf(sgst));
-      invoice.setNetAmount(BigDecimal.valueOf(netTotal));
-      invoice.setGrossAmount(BigDecimal.valueOf(grossTotal));
+      invoice.setIgst(igst);
+      invoice.setCgst(cgst);
+      invoice.setSgst(sgst);
+      invoice.setNetAmount(netTotal);
+      invoice.setGrossAmount(grossTotal);
 
       response.setValues(invoice);
     } else {

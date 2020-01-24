@@ -8,20 +8,14 @@ import com.google.inject.persist.Transactional;
 public class SequenceServiceImpl implements SequenceService {
 
   @Inject SequenceRepository sequenceRepo;
-  // @Inject MetaModelRepository metaModelRepo;
 
   @Transactional
   @Override
   public String getSequence(String model) {
 
-    // Sequence sequence =sequenceRepo.all().filter("self.model=
-    // :model").bind("model",model).fetchOne();
-    // Sequence s = sequenceRepo.all().filter("self.model.name =
-    // :model").bind("model",model).fetchOne();
-    // MetaModel metamodel = metaModelRepo.findByName(model);
     Sequence sequence =
         sequenceRepo.all().filter("self.model.name = :model").bind("model", model).fetchOne();
-    //  sequenceRepo.findByModel(metamodel);
+
     if (sequence != null) {
       String seq = "";
       seq += sequence.getPrefix();

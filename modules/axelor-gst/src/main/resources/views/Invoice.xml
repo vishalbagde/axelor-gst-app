@@ -45,9 +45,7 @@
     </panel>
 
     <panel itemSpan="6" name="partyDetailsPanel">
-      <field name="party"
-        onChange="action-gst-invoice-record-set-primary-contact-in-party,action-attrs-invoice-on-change-set-shipping-address,action-gst-attrs-invoice-on-select-set-contact" 
-         />
+      <field name="party" onChange="action-gst-group-invoice-set-default-value"/>
       <field name="partyContact" />
     </panel>
 
@@ -74,6 +72,9 @@
   </form>
 
   <grid model="com.axelor.gst.db.Invoice" title="Invoice" name="invoice-grid">
+  <hilite if="statusSelect=='validated'" color="success"/>
+  <hilite if="statusSelect=='cancelled'" color="danger"/>
+  <hilite if="statusSelect=='paid'" color="primary"/>
     <field name="reference" />
     <field name="company" />
     <field name="invoiceDateT" />
@@ -155,11 +156,17 @@
   <action-condition  name="action-invoice-order-validate">
      <check field="invoiceDateT"  error="Select Valid Invoice Date" if="invoiceDateT==null"/>
   </action-condition>
-  
+
   <action-attrs name="action-gst-attrs-invoice-on-select-set-contact">
-		<attribute name="domain" for="partyContact" expr="eval: party?.contactList?.collect{it.id}?.size() > 0 ? &quot;self.id IN (${party?.contactList?.collect{it.id}?.join(',')})&quot; :null"/>
-		<attribute name="domain" for="invoiceAddress" expr="eval: party?.addressList?.collect{it.id}?.size() > 0 ? &quot;self.id IN (${party?.addressList?.collect{it.id}?.join(',')})&quot; : null"/>
-		<attribute name="domain" for="shippingAddress" expr="eval: party?.addressList?.collect{it.id}?.size() > 0 ? &quot;self.id IN (${party?.addressList?.collect{it.id}?.join(',')})&quot; : null"/>
+    <attribute name="domain" for="partyContact" expr="eval: party?.contactList?.collect{it.id}?.size() > 0 ? &quot;self.id IN (${party?.contactList?.collect{it.id}?.join(',')})&quot; : &quot;self.id IN (null)&quot;"/>
+    <attribute name="domain" for="invoiceAddress" expr="eval: party?.addressList?.collect{it.id}?.size() > 0 ? &quot;self.id IN (${party?.addressList?.collect{it.id}?.join(',')})&quot; : &quot;self.id IN (null)&quot;"/>
+    <attribute name="domain" for="shippingAddress" expr="eval: party?.addressList?.collect{it.id}?.size() > 0 ? &quot;self.id IN (${party?.addressList?.collect{it.id}?.join(',')})&quot; : &quot;self.id IN (null)&quot;"/>
   </action-attrs>
-  
+
+  <action-group name="action-gst-group-invoice-set-default-value">
+  <action name="action-gst-invoice-record-set-primary-contact-in-party"/>
+  <action name="action-attrs-invoice-on-change-set-shipping-address"/>
+  <action name="action-gst-attrs-invoice-on-select-set-contact"/>
+  </action-group>
+
 </object-views>

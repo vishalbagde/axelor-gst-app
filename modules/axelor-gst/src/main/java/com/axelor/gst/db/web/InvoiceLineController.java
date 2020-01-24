@@ -21,25 +21,29 @@ public class InvoiceLineController {
         invoiceLine.setSgst(BigDecimal.valueOf(0));
         invoiceLine.setCgst(BigDecimal.valueOf(0));
         invoiceLine.setIgst(BigDecimal.valueOf(0));
-        double gstAmount = 0;
+        BigDecimal gstAmount = BigDecimal.ZERO;
         gstAmount =
-            invoiceLine.getNetAmount().doubleValue() * invoiceLine.getGstRate().doubleValue() / 100;
+            invoiceLine
+                .getNetAmount()
+                .multiply(invoiceLine.getGstRate())
+                .divide(BigDecimal.valueOf(100));
+
         if (companyAddress.getState().equals(partyAddress.getState())) {
-          response.setValue("sgst", BigDecimal.valueOf(gstAmount / 2));
-          invoiceLine.setSgst(BigDecimal.valueOf(gstAmount / 2));
-          response.setValue("cgst", BigDecimal.valueOf(gstAmount / 2));
-          invoiceLine.setCgst(BigDecimal.valueOf(gstAmount / 2));
+          response.setValue("sgst", gstAmount.divide(BigDecimal.valueOf(2)));
+          invoiceLine.setSgst(gstAmount.divide(BigDecimal.valueOf(2)));
+          response.setValue("cgst", gstAmount.divide(BigDecimal.valueOf(2)));
+          invoiceLine.setCgst(gstAmount.divide(BigDecimal.valueOf(2)));
+
         } else {
-          response.setValue("igst", BigDecimal.valueOf(gstAmount));
-          invoiceLine.setIgst(BigDecimal.valueOf(gstAmount));
+          response.setValue("igst", gstAmount);
+          invoiceLine.setIgst(gstAmount);
         }
-        response.setValue("grossAmount", invoiceLine.getNetAmount().doubleValue() + gstAmount);
-        invoiceLine.setGrossAmount(
-            BigDecimal.valueOf(invoiceLine.getNetAmount().doubleValue() + gstAmount));
+        response.setValue("grossAmount", invoiceLine.getNetAmount().add(gstAmount));
+        invoiceLine.setGrossAmount(invoiceLine.getNetAmount().add(gstAmount));
         response.setValues(invoiceLine);
       } else {
         response.setFlash("Not find Party address or Invoice Address");
-        response.setHidden("ok", true);
+        response.setReload(true);
       }
     } else {
       response.setFlash("Invalid Invoice");

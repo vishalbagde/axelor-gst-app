@@ -15,7 +15,6 @@ public class SequenceController {
     Party party = request.getContext().asType(Party.class);
 
     if (party.getReference() == null) {
-
       String seq = sequenceService.getSequence(Party.class.getSimpleName());
       if (seq != null) {
         party.setReference(seq);
@@ -30,8 +29,12 @@ public class SequenceController {
     Invoice invoice = request.getContext().asType(Invoice.class);
     if (invoice.getReference() == null) {
       String seq = sequenceService.getSequence(Invoice.class.getSimpleName());
-      invoice.setReference(seq);
-      response.setValue("reference", seq);
+      if (seq != null) {
+        invoice.setReference(seq);
+        response.setValue("reference", seq);
+      } else {
+        response.setFlash("Sequence Not Available");
+      }
     }
   }
 }

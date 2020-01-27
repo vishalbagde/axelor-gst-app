@@ -22,4 +22,10 @@ public class GstInvoiceRepo extends InvoiceRepository {
     }
     return json;
   }
+
+  @Override
+  public Invoice save(Invoice entity) {
+    // TODO Auto-generated method stub
+    return super.save(entity);
+  }
 }

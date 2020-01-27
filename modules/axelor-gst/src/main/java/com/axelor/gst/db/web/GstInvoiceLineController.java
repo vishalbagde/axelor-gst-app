@@ -3,11 +3,14 @@ package com.axelor.gst.db.web;
 import com.axelor.gst.db.Address;
 import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.InvoiceLine;
+import com.axelor.gst.db.service.GstInvoiceLineService;
 import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
+import com.google.inject.Inject;
 import java.math.BigDecimal;
 
 public class GstInvoiceLineController {
+  @Inject GstInvoiceLineService invoiceLineSer;
 
   public void calculateGst(ActionRequest request, ActionResponse response) {
     InvoiceLine invoiceLine = request.getContext().asType(InvoiceLine.class);
@@ -47,6 +50,16 @@ public class GstInvoiceLineController {
       }
     } else {
       response.setFlash("Invalid Invoice");
+    }
+  }
+
+  public void setDefaultValueInInvoiceLine(ActionRequest request, ActionResponse response) {
+    InvoiceLine invoiceLine = request.getContext().asType(InvoiceLine.class);
+    if (invoiceLine.getProduct() != null) {
+      invoiceLineSer.setDefaultValueInInvoiceLine(invoiceLine);
+      response.setValues(invoiceLine);
+    } else {
+      response.setFlash("Invalid Product");
     }
   }
 }

@@ -70,9 +70,32 @@ public class GstInvoiceServiceImpl implements GstInvoiceService {
           invoice.setGrossAmount(grossTotal);
         }
       }
-      invoiceRepo.persist(invoice);
+      // invoice = invoiceRepo.save(invoice);
       return invoice;
 
     } else return null;
+  }
+
+  @Override
+  public Invoice setTotalInInvoice(Invoice invoice) {
+
+    List<InvoiceLine> invoiceLineList = invoice.getInvoiceLineList();
+
+    // double cgst = 0, sgst = 0, igst = 0, netTotal = 0, grossTotal = 0;
+
+    invoice.setCgst(BigDecimal.ZERO);
+    invoice.setSgst(BigDecimal.ZERO);
+    invoice.setIgst(BigDecimal.ZERO);
+    invoice.setNetAmount(BigDecimal.ZERO);
+    invoice.setGrossAmount(BigDecimal.ZERO);
+
+    for (InvoiceLine invoiceLine : invoiceLineList) {
+      invoice.setNetAmount(invoice.getNetAmount().add(invoiceLine.getNetAmount()));
+      invoice.setSgst(invoice.getSgst().add(invoiceLine.getSgst()));
+      invoice.setCgst(invoice.getCgst().add(invoiceLine.getCgst()));
+      invoice.setIgst(invoice.getIgst().add(invoiceLine.getIgst()));
+      invoice.setGrossAmount(invoice.getGrossAmount().add(invoiceLine.getGrossAmount()));
+    }
+    return invoice;
   }
 }

@@ -68,6 +68,7 @@
   <action-report output="${date}${time}" name="action-report-product-on-click-print-product"
     design="product_report.rptdesign">
     <param name="productIdsStr" expr="eval:_productIdsStr"/>
+    <param name="attachmentPath" expr="/home/axelor/.axelor/attachments"/>
   </action-report>
 
   <action-view name="action-gst-view-product-set-in-invoice" title="Invoice Details" model="com.axelor.gst.db.Invoice">
@@ -78,5 +79,7 @@
   <action-method name="action-gst-method-product-on-click-set-product-id">
     <call class="com.axelor.gst.db.web.GstProductController" method="gstSelectProductIdInGrid"/>
   </action-method>
+  
+  
 
 </object-views>

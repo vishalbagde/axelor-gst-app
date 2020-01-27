@@ -11,7 +11,7 @@ public class GstProductController {
     List<Integer> productIds = (List<Integer>) request.getContext().get("_ids");
     if (productIds != null && !productIds.isEmpty()) {
 
-      String productidStr = Joiner.on(',').join(productIds);
+    	String productidStr = Joiner.on(',').join(productIds); 
       // System.err.println(productidStr);
       // response.setView(ActionView.define("Create Invoice").add("form",
       // "invoice-from").context("productIdsStr", productIds).map());

@@ -6,8 +6,8 @@ import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.InvoiceLine;
 import com.axelor.gst.db.Party;
 import com.axelor.gst.db.Product;
-import com.axelor.gst.db.repo.GstInvoiceRepo;
 import com.axelor.gst.db.repo.ProductRepository;
+import com.axelor.gst.db.service.GstInvoiceLineService;
 import com.axelor.gst.db.service.GstInvoiceService;
 import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
@@ -19,8 +19,8 @@ import java.util.List;
 public class GstInvoiceController {
 
   @Inject GstInvoiceService invoiceService;
-  @Inject GstInvoiceRepo invoiceRepo;
   @Inject ProductRepository productRepo;
+  @Inject GstInvoiceLineService invoiceLineSer;
 
   public void setOrderLineFromProduct(ActionRequest request, ActionResponse response) {
     String productIdsStr = (String) request.getContext().get("productIdsStr");
@@ -31,14 +31,9 @@ public class GstInvoiceController {
       for (int i = 0; i < productIdsList.length; i++) {
         InvoiceLine invoiceline = new InvoiceLine();
         Product product =
-            productRepo.all().filter("self.id = :id").bind("id", productIdsList[i]).fetchOne();
-        invoiceline.setItem("[" + product.getCode() + "] " + product.getName());
-
-        invoiceline.setPrice(product.getSalePrice());
-        invoiceline.setQty(1);
-        invoiceline.setNetAmount(
-            invoiceline.getPrice().multiply(BigDecimal.valueOf(invoiceline.getQty())));
+        productRepo.all().filter("self.id = :id").bind("id", productIdsList[i]).fetchOne();
         invoiceline.setProduct(product);
+        invoiceline=invoiceLineSer.setDefaultValueInInvoiceLine(invoiceline);
         invoiceLineList.add(invoiceline);
         invoice.setInvoiceLineList(invoiceLineList);
       }
@@ -85,28 +80,15 @@ public class GstInvoiceController {
 
   public void setTotalInInvoice(ActionRequest request, ActionResponse response) {
     Invoice invoice = request.getContext().asType(Invoice.class);
-    List<InvoiceLine> invoiceLineList = invoice.getInvoiceLineList();
+    invoice = invoiceService.setTotalInInvoice(invoice);
+    response.setValues(invoice);
 
-    // double cgst = 0, sgst = 0, igst = 0, netTotal = 0, grossTotal = 0;
-
-    BigDecimal cgst = BigDecimal.ZERO;
-    BigDecimal sgst = BigDecimal.ZERO;
-    BigDecimal igst = BigDecimal.ZERO;
-    BigDecimal netTotal = BigDecimal.ZERO;
-    BigDecimal grossTotal = BigDecimal.ZERO;
-
-    for (InvoiceLine invoiceLine : invoiceLineList) {
-      netTotal = netTotal.add(invoiceLine.getNetAmount());
-      sgst = sgst.add(invoiceLine.getSgst());
-      cgst = cgst.add(invoiceLine.getCgst());
-      igst = igst.add(invoiceLine.getIgst());
-      grossTotal = grossTotal.add(invoiceLine.getGrossAmount());
-    }
-    response.setValue("igst", igst);
-    response.setValue("cgst", cgst);
-    response.setValue("sgst", sgst);
-    response.setValue("netAmount", netTotal);
-    response.setValue("grossAmount", grossTotal);
+    /*		response.setValue("igst", invoice.getIgst());
+    		response.setValue("cgst", invoice.getCgst());
+    		response.setValue("sgst", invoice.getSgst());
+    		response.setValue("netAmount", invoice.getNetAmount());
+    		response.setValue("grossAmount", invoice.getGrossAmount());
+    */
   }
 
   public void setVerifyTotalInInvoice(ActionRequest request, ActionResponse response) {
@@ -122,8 +104,7 @@ public class GstInvoiceController {
       response.setValue("grossAmount", invoice.getGrossAmount());
 
     } else {
-      response.setFlash("Not find Party address or Invoice Address");
-      response.setHidden("ok", true);
+      response.setFlash("No Invoice Found");
     }
   }
 }

@@ -7,7 +7,7 @@
     name="invoice-line-form" width="large">
     <panel title="Product Details" css="panel-red">
       <panel colSpan="12" itemSpan="6" name="productName">
-        <field name="product" onChange="action-attrs-invoice-line-on-change-set-item,action-attrs-invoice-line-on-change-set-gst-rate" />
+        <field name="product" onChange="action-method-invoice-line-on-change-set-default-value,action-group-invoice-line-on-change-check-price-and-qty" />
         <field name="hsbn"/>
       </panel>
       <panel colSpan="12" itemSpan="3">
@@ -56,6 +56,10 @@
 
   <action-method name="action-method-invoice-line-on-change-calculate-gst" model="com.axelor.gst.db.InvoiceLine">
   <call class="com.axelor.gst.db.web.GstInvoiceLineController" method="calculateGst"/>
+  </action-method>
+
+  <action-method name="action-method-invoice-line-on-change-set-default-value" model="com.axelor.gst.db.InvoiceLine">
+      <call class="com.axelor.gst.db.web.GstInvoiceLineController" method="setDefaultValueInInvoiceLine"/>
   </action-method>
 
   <action-condition name="action-condition-gst-check-qty-and-price">

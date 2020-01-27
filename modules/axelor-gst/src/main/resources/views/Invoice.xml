@@ -175,7 +175,7 @@
   </action-group>
 
   <action-group
-    name="action-gst-group-invoice-on-save-set-reference-verity-invoice">
+    name="action-gst-group-invoice-on-save-set-reference-verity-invoice" model="com.axelor.gst.db.Invoice">
     <action name="action-invoice-order-validate" />
     <action name="action-gst-invoice-method-on-save-set-reference"	 />
     <action name="action-gst-invoice-method-on-save-verify-data" />

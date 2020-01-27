@@ -16,7 +16,6 @@
     <view type="dashboard" name="dashboard-gst-main" />
   </action-view>
 
-
   <!--MAIN PARTY -->
   <menuitem title="Party" name="menu-party-main-all" parent="menu-gst-main-module"
     icon="fa-handshake-o" icon-background="purple" />
@@ -31,7 +30,6 @@
     <view type="form" name="party-form" />
     <view type="cards" name="party-card" />
   </action-view>
-
 
   <!-- Menu Contact -->
   <menuitem title="Contact" name="menu-contact-all" parent="menu-party-main-all"
@@ -139,7 +137,6 @@
     <domain>self.statusSelect='draft'</domain>
   </action-view>
 
-
   <!--Menu Validated Invoice -->
   <menuitem title="Validated Invoice" name="menu-validated-invoice-all"
     parent="menu-invoice-main-all" action="menu-action-view-validated-invoice-all" />
@@ -166,7 +163,6 @@
   <menuitem title="cancelled Invoice" name="menu-cancelled-invoice-all"
     parent="menu-invoice-main-all" action="menu-action-view-cancelled-invoice-all"></menuitem>
 
-
   <action-view name="menu-action-view-cancelled-invoice-all"
     title="Cancelled Invoice" model="com.axelor.gst.db.Invoice">
     <view type="grid" name="invoice-grid" />
@@ -189,7 +185,6 @@
   <!--MAIN Menu Company -->
   <menuitem title="Company" name="menu-company-main-all" parent="menu-gst-main-module"
     icon="fa-industry" />
-
 
   <!-- Menu Company -->
   <menuitem title="Company" name="menu-company-all" parent="menu-company-main-all"

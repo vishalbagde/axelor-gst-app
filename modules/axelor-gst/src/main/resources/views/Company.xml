@@ -36,6 +36,6 @@
     <field name="name"></field>
     <field name="gstin"></field>
     <field name="address"></field>
-  </grid>	
+  </grid>
 
 </object-views>

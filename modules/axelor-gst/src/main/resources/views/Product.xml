@@ -24,8 +24,9 @@
 
   <grid model="com.axelor.gst.db.Product" title="Product" name="product-grid" id="product_grid" >
   <toolbar>
-  <button name="createInvoiceBtn" title="Create Invoice"  onClick="action-gst-view-product-set-in-invoice" />
-  <button name="printBtn" title="Print" onClick="action-report-product-on-click-print-product"/>
+
+  <button name="createInvoiceBtn" title="Create Invoice"  onClick="action-gst-method-product-on-click-set-product-id,action-gst-view-product-set-in-invoice" />
+  <button name="printBtn" title="Print" onClick="action-gst-method-product-on-click-set-product-id,action-report-product-on-click-print-product"/>
   </toolbar>
 
     <field name="code"></field>
@@ -66,10 +67,16 @@
 
   <action-report output="${date}${time}" name="action-report-product-on-click-print-product"
     design="product_report.rptdesign">
+    <param name="productIdsStr" expr="eval:_productIdsStr"/>
   </action-report>
-  
+
   <action-view name="action-gst-view-product-set-in-invoice" title="Invoice Details" model="com.axelor.gst.db.Invoice">
-  	<view type="form" name="invoice-form"/>
+    <view type="form" name="invoice-form"/>
+    <context name="productIdsStr" expr="eval:_productIdsStr"/>
   </action-view>
+
+  <action-method name="action-gst-method-product-on-click-set-product-id">
+    <call class="com.axelor.gst.db.web.GstProductController" method="gstSelectProductIdInGrid"/>
+  </action-method>
 
 </object-views>

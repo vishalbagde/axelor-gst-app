@@ -1,96 +1,96 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <object-views xmlns="http://axelor.com/xml/ns/object-views"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
 
-	<selection name="invoice.status.selection">
-		<option value="draft">draft</option>
-		<option value="validated">validated</option>
-		<option value="paid">paid</option>
-		<option value="cancelled">cancelled</option>
-	</selection>
+  <selection name="invoice.status.selection">
+    <option value="draft">draft</option>
+    <option value="validated">validated</option>
+    <option value="paid">paid</option>
+    <option value="cancelled">cancelled</option>
+  </selection>
 
-	<form model="com.axelor.gst.db.Invoice" title="Invoice Details"
-		width="large" name="invoice-form" onNew="action-gst-invoice-record-set-invoice-date"
-		onSave="action-gst-group-invoice-on-save-set-reference-verity-invoice">
+  <form model="com.axelor.gst.db.Invoice" title="Invoice Details"
+    width="large" name="invoice-form" onNew="action-gst-invoice-record-set-invoice-date,action-invoice-method-set-order-line-from-product"
+    onSave="action-gst-group-invoice-on-save-set-reference-verity-invoice">
 
-		<toolbar>
-			<button name="printInvoiceBtn" title="Print" hideIf="!id"
-				onClick="action-report-invoice-on-click-print-invoice" />
-		</toolbar>
+    <toolbar>
+      <button name="printInvoiceBtn" title="Print" hideIf="!id"
+        onClick="action-report-invoice-on-click-print-invoice" />
+    </toolbar>
 
-		<panel name="invoiceStatusPanel">
-			<field colSpan="12" name="statusSelect" widget="nav-select"
-				readonly="true"></field>
-		</panel>
+    <panel name="invoiceStatusPanel">
+      <field colSpan="12" name="statusSelect" widget="nav-select"
+        readonly="true"></field>
+    </panel>
 
-		<panel itemSpan="12" sidebar="true" name="statusBtnPanel">
-			<button name="statusDraftBtn" css="btn-primary" title="Draft"
-				hidden="true" showIf="statusSelect =='cancelled'"
-				onClick="action-attrs-invoice-on-click-change-status-draft" />
-			<button name="statusVadidatedBtn" css="btn-success" title="Validated"
-				showIf="statusSelect =='draft'" onClick="action-attrs-invoice-on-click-change-status-validated" />
-			<button name="statusPaidBtn" css="btn-warning" title="Paid"
-				showIf="statusSelect == 'validated'" onClick="action-attrs-invoice-on-click-change-status-paid" />
-			<button name="statusCancelledBtn" css="btn-danger" title="Cancelled"
-				hideIf="statusSelect =='cancelled'" onClick="action-attrs-invoice-on-click-change-status-canceled" />
-		</panel>
+    <panel itemSpan="12" sidebar="true" name="statusBtnPanel">
+      <button name="statusDraftBtn" css="btn-primary" title="Draft"
+        hidden="true" showIf="statusSelect =='cancelled'"
+        onClick="action-attrs-invoice-on-click-change-status-draft" />
+      <button name="statusVadidatedBtn" css="btn-success" title="Validated"
+        showIf="statusSelect =='draft'" onClick="action-attrs-invoice-on-click-change-status-validated" />
+      <button name="statusPaidBtn" css="btn-warning" title="Paid"
+        showIf="statusSelect == 'validated'" onClick="action-attrs-invoice-on-click-change-status-paid" />
+      <button name="statusCancelledBtn" css="btn-danger" title="Cancelled"
+        hideIf="statusSelect =='cancelled'" onClick="action-attrs-invoice-on-click-change-status-canceled" />
+    </panel>
 
-		<panel itemSpan="3" name="overview">
-			<field name="reference" />
-			<field name="company" />
-			<field name="invoiceDateT" />
-			<field name="priority" />
-		</panel>
+    <panel itemSpan="3" name="overview">
+      <field name="reference" />
+      <field name="company" />
+      <field name="invoiceDateT" />
+      <field name="priority" />
+    </panel>
 
-		<panel itemSpan="6" name="partyDetailsPanel">
-			<field name="party" onChange="action-gst-group-invoice-set-default-value" />
-			<field name="partyContact" />
-		</panel>
+    <panel itemSpan="6" name="partyDetailsPanel">
+      <field name="party" onChange="action-gst-group-invoice-set-default-value" />
+      <field name="partyContact" />
+    </panel>
 
-		<panel name="addressPanel">
-			<field name="invoiceAddress" colSpan="5"
-				onChange="action-attrs-invoice-on-change-set-shipping-address" />
-			<field name="isInvoiceAddAsShippingAdd" colSpan="2"
-				onChange="action-attrs-invoice-on-change-set-shipping-address" />
-			<field name="shippingAddress" colSpan="5"
-				hideIf="isInvoiceAddAsShippingAdd" />
-		</panel>
+    <panel name="addressPanel">
+      <field name="invoiceAddress" colSpan="5"
+        onChange="action-attrs-invoice-on-change-set-shipping-address" />
+      <field name="isInvoiceAddAsShippingAdd" colSpan="2"
+        onChange="action-attrs-invoice-on-change-set-shipping-address" />
+      <field name="shippingAddress" colSpan="5"
+        hideIf="isInvoiceAddAsShippingAdd" />
+    </panel>
 
-		<panel-related field="invoiceLineList" css="panel-green"
-			readonlyIf="company==null &amp;&amp;  party==null" onChange="action-gst-invoice-line-method-on-new-set-total">
-		</panel-related>
+    <panel-related field="invoiceLineList" css="panel-green"
+      readonlyIf="company==null &amp;&amp;  party==null" onChange="action-gst-invoice-line-method-on-new-set-total">
+    </panel-related>
 
-		<panel colSpan="12" colOffset="2" css="panel-green" name="totalDetailsPanel">
-			<field colSpan="2" title="Net Amount" readonly="true" name="netAmount"></field>
-			<field colSpan="2" readonly="true" name="igst"></field>
-			<field colSpan="2" readonly="true" name="cgst"></field>
-			<field colSpan="2" readonly="true" name="sgst"></field>
-			<field colSpan="2" readonly="true" name="grossAmount"></field>
-		</panel>
-	</form>
+    <panel colSpan="12" colOffset="2" css="panel-green" name="totalDetailsPanel">
+      <field colSpan="2" title="Net Amount" readonly="true" name="netAmount"></field>
+      <field colSpan="2" readonly="true" name="igst"></field>
+      <field colSpan="2" readonly="true" name="cgst"></field>
+      <field colSpan="2" readonly="true" name="sgst"></field>
+      <field colSpan="2" readonly="true" name="grossAmount"></field>
+    </panel>
+  </form>
 
-	<grid model="com.axelor.gst.db.Invoice" title="Invoice" name="invoice-grid">
-		<hilite if="statusSelect=='validated'" color="success" />
-		<hilite if="statusSelect=='cancelled'" color="danger" />
-		<hilite if="statusSelect=='paid'" color="primary" />
-		<field name="reference" />
-		<field name="company" />
-		<field name="invoiceDateT" />
-		<field name="party" />
-		<field name="grossAmount" />
-		<field name="statusSelect" />
-	</grid>
+  <grid model="com.axelor.gst.db.Invoice" title="Invoice" name="invoice-grid">
+    <hilite if="statusSelect=='validated'" color="success" />
+    <hilite if="statusSelect=='cancelled'" color="danger" />
+    <hilite if="statusSelect=='paid'" color="primary" />
+    <field name="reference" />
+    <field name="company" />
+    <field name="invoiceDateT" />
+    <field name="party" />
+    <field name="grossAmount" />
+    <field name="statusSelect" />
+  </grid>
 
-	<kanban name="invoice-kanban" title="Invoice" model="com.axelor.gst.db.Invoice"
-		columnBy="statusSelect" sequenceBy="priority" limit="10" draggable="true">
-		<field name="reference" />
-		<field name="invoiceDateT" />
-		<field name="grossAmount" />
-		<field name="image" />
-		<field name="user" />
-		<field name="partyName" />
-		<template><![CDATA[
+  <kanban name="invoice-kanban" title="Invoice" model="com.axelor.gst.db.Invoice"
+    columnBy="statusSelect" sequenceBy="priority" limit="10" draggable="true">
+    <field name="reference" />
+    <field name="invoiceDateT" />
+    <field name="grossAmount" />
+    <field name="image" />
+    <field name="user" />
+    <field name="partyName" />
+    <template><![CDATA[
     <h4 class="pull-right label-success">{{reference}}</h4>
     <div class="card-body">{{partyName}}</div>
     <div class="card-body"><h4>{{grossAmount}}</h4></div>
@@ -98,87 +98,92 @@
       <i class='fa fa-clock-o'></i> <span>{{invoiceDateT|date:'yyyy-MM-dd'}}</span>
     </div>
     ]]></template>
-	</kanban>
+  </kanban>
 
-	<action-attrs name="action-attrs-invoice-on-click-change-status-draft">
-		<attribute name="value" for="statusSelect" expr="eval:'draft'" />
-	</action-attrs>
+  <action-attrs name="action-attrs-invoice-on-click-change-status-draft">
+    <attribute name="value" for="statusSelect" expr="eval:'draft'" />
+  </action-attrs>
 
-	<action-attrs name="action-attrs-invoice-on-click-change-status-validated">
-		<attribute name="value" for="statusSelect" expr="eval:'validated'" />
-	</action-attrs>
+  <action-attrs name="action-attrs-invoice-on-click-change-status-validated">
+    <attribute name="value" for="statusSelect" expr="eval:'validated'" />
+  </action-attrs>
 
-	<action-attrs name="action-attrs-invoice-on-click-change-status-paid">
-		<attribute name="value" for="statusSelect" expr="eval:'paid'" />
-	</action-attrs>
+  <action-attrs name="action-attrs-invoice-on-click-change-status-paid">
+    <attribute name="value" for="statusSelect" expr="eval:'paid'" />
+  </action-attrs>
 
-	<action-attrs name="action-attrs-invoice-on-click-change-status-canceled">
-		<attribute name="value" for="statusSelect" expr="eval:'cancelled'" />
-	</action-attrs>
+  <action-attrs name="action-attrs-invoice-on-click-change-status-canceled">
+    <attribute name="value" for="statusSelect" expr="eval:'cancelled'" />
+  </action-attrs>
 
-	<!-- to set Default Shipping address -->
-	<action-attrs name="action-attrs-invoice-on-change-set-shipping-address">
-		<attribute name="value" if="isInvoiceAddAsShippingAdd" for="shippingAddress"
-			expr="eval:invoiceAddress" />
-	</action-attrs>
+  <!-- to set Default Shipping address -->
+  <action-attrs name="action-attrs-invoice-on-change-set-shipping-address">
+    <attribute name="value" if="isInvoiceAddAsShippingAdd" for="shippingAddress"
+      expr="eval:invoiceAddress" />
+  </action-attrs>
 
-	<action-record name="action-gst-invoice-record-set-invoice-date"
-		model="com.axelor.gst.db.Invoice">
-		<field name="invoiceDateT" expr="eval:__datetime__" />
-	</action-record>
+  <action-record name="action-gst-invoice-record-set-invoice-date"
+    model="com.axelor.gst.db.Invoice">
+    <field name="invoiceDateT" expr="eval:__datetime__" />
+  </action-record>
 
-	<action-method name="action-gst-invoice-record-set-primary-contact-in-party"
-		model="com.axelor.db.Invoice">
-		<call class="com.axelor.gst.db.web.InvoiceController" method="setPrimaryContactAndAddressInInvoice" />
-	</action-method>
+  <action-method name="action-gst-invoice-record-set-primary-contact-in-party"
+    model="com.axelor.db.Invoice">
+    <call class="com.axelor.gst.db.web.GstInvoiceController" method="setPrimaryContactAndAddressInInvoice" />
+  </action-method>
 
-	<action-method name="action-gst-invoice-method-on-save-set-reference"
-		model="com.axelor.gst.db.Invoice">
-		<call class="com.axelor.gst.db.web.SequenceController" method="setReferenceInInvoice" />
-	</action-method>
+  <action-method name="action-gst-invoice-method-on-save-set-reference"
+    model="com.axelor.gst.db.Invoice">
+    <call class="com.axelor.gst.db.web.GstSequenceController" method="setReferenceInInvoice" />
+  </action-method>
 
-	<action-method name="action-gst-invoice-line-method-on-new-set-total"
-		model="com.axelor.gst.db.Invoice">
-		<call class="com.axelor.gst.db.web.InvoiceController" method="setTotalInInvoice" />
-	</action-method>
+  <action-method name="action-gst-invoice-line-method-on-new-set-total"
+    model="com.axelor.gst.db.Invoice">
+    <call class="com.axelor.gst.db.web.GstInvoiceController" method="setTotalInInvoice" />
+  </action-method>
 
-	<action-method name="action-gst-invoice-method-on-save-verify-data"
-		model="com.axelor.gst.db.Invoice">
-		<call class="com.axelor.gst.db.web.InvoiceController" method="setVerifyTotalInInvoice" />
-	</action-method>
+  <action-method name="action-gst-invoice-method-on-save-verify-data"
+    model="com.axelor.gst.db.Invoice">
+    <call class="com.axelor.gst.db.web.GstInvoiceController" method="setVerifyTotalInInvoice" />
+  </action-method>
 
-	<action-report output="${date}${time}"
-		name="action-report-invoice-on-click-print-invoice" design="invoice_report.rptdesign">
-		<param name="invoiceId" expr="eval: id" />
-	</action-report>
+  <action-report output="${date}${time}"
+    name="action-report-invoice-on-click-print-invoice" design="invoice_report.rptdesign">
+    <param name="invoiceId" expr="eval: id" />
+  </action-report>
 
-	<action-condition name="action-invoice-order-validate">
-		<check field="invoiceDateT" error="Select Valid Invoice Date"
-			if="invoiceDateT==null" />
-		<check field="invoiceLineList" error="Select Product In Invoice Line"
-			if="invoiceLineList==null" />
-	</action-condition>
+  <action-condition name="action-invoice-order-validate">
+    <check field="invoiceDateT" error="Select Valid Invoice Date"
+      if="invoiceDateT==null" />
+    <check field="invoiceLineList" error="Select Product In Invoice Line"
+      if="invoiceLineList==null" />
+  </action-condition>
 
-	<action-attrs name="action-gst-attrs-invoice-on-select-set-contact">
-		<attribute name="domain" for="partyContact"
-			expr="eval: party?.contactList?.collect{it.id}?.size() > 0 ? &quot;self.id IN (${party?.contactList?.collect{it.id}?.join(',')})&quot; : &quot;self.id IN (null)&quot;" />
-		<attribute name="domain" for="invoiceAddress"
-			expr="eval: party?.addressList?.collect{it.id}?.size() > 0 ? &quot;self.id IN (${party?.addressList?.collect{it.id}?.join(',')})&quot; : &quot;self.id IN (null)&quot;" />
-		<attribute name="domain" for="shippingAddress"
-			expr="eval: party?.addressList?.collect{it.id}?.size() > 0 ? &quot;self.id IN (${party?.addressList?.collect{it.id}?.join(',')})&quot; : &quot;self.id IN (null)&quot;" />
-	</action-attrs>
+  <action-attrs name="action-gst-attrs-invoice-on-select-set-contact">
+    <attribute name="domain" for="partyContact"
+      expr="eval: party?.contactList?.collect{it.id}?.size() > 0 ? &quot;self.id IN (${party?.contactList?.collect{it.id}?.join(',')})&quot; : &quot;self.id IN (null)&quot;" />
+    <attribute name="domain" for="invoiceAddress"
+      expr="eval: party?.addressList?.collect{it.id}?.size() > 0 ? &quot;self.id IN (${party?.addressList?.collect{it.id}?.join(',')})&quot; : &quot;self.id IN (null)&quot;" />
+    <attribute name="domain" for="shippingAddress"
+      expr="eval: party?.addressList?.collect{it.id}?.size() > 0 ? &quot;self.id IN (${party?.addressList?.collect{it.id}?.join(',')})&quot; : &quot;self.id IN (null)&quot;" />
+  </action-attrs>
 
-	<action-group name="action-gst-group-invoice-set-default-value">
-		<action name="action-gst-invoice-record-set-primary-contact-in-party" />
-		<action name="action-attrs-invoice-on-change-set-shipping-address" />
-		<action name="action-gst-attrs-invoice-on-select-set-contact" />
-	</action-group>
+  <action-group name="action-gst-group-invoice-set-default-value">
+    <action name="action-gst-invoice-record-set-primary-contact-in-party" />
+    <action name="action-attrs-invoice-on-change-set-shipping-address" />
+    <action name="action-gst-attrs-invoice-on-select-set-contact" />
+  </action-group>
 
-	<action-group
-		name="action-gst-group-invoice-on-save-set-reference-verity-invoice">
-		<action name="action-invoice-order-validate" />
-		<action name="action-gst-invoice-method-on-save-set-reference"	 />
-		<action name="action-gst-invoice-method-on-save-verify-data" />
-	</action-group>
+  <action-group
+    name="action-gst-group-invoice-on-save-set-reference-verity-invoice">
+    <action name="action-invoice-order-validate" />
+    <action name="action-gst-invoice-method-on-save-set-reference"	 />
+    <action name="action-gst-invoice-method-on-save-verify-data" />
+  </action-group>
+
+
+  <action-method name="action-invoice-method-set-order-line-from-product">
+  <call class="com.axelor.gst.db.web.GstInvoiceController" method="setOrderLineFromProduct"/>
+  </action-method>
 
 </object-views>

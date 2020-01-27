@@ -7,7 +7,7 @@ import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
 import com.google.inject.Inject;
 
-public class SequenceController {
+public class GstSequenceController {
 
   @Inject SequenceService sequenceService;
 
@@ -24,7 +24,7 @@ public class SequenceController {
       }
     }
   }
-  
+
   public void setReferenceInInvoice(ActionRequest request, ActionResponse response) {
     Invoice invoice = request.getContext().asType(Invoice.class);
     if (invoice.getReference() == null) {

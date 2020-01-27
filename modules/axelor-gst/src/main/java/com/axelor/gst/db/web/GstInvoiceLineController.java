@@ -7,7 +7,7 @@ import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
 import java.math.BigDecimal;
 
-public class InvoiceLineController {
+public class GstInvoiceLineController {
 
   public void calculateGst(ActionRequest request, ActionResponse response) {
     InvoiceLine invoiceLine = request.getContext().asType(InvoiceLine.class);

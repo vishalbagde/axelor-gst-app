@@ -11,7 +11,7 @@
     <many-to-one name="category" ref="ProductCategory" title="Product Category"/>
     <decimal name="salePrice" title="Sales Price"/>
     <decimal name="costPrice" title="Cost Price"/>
-    <binary name="image" image="true" title="Product Image"/>
+    <many-to-one name="image" ref="com.axelor.meta.db.MetaFile" title="Product Image"/>
     <decimal name="gstRate" title="GST Rate"/>
   </entity>
 </domain-models>

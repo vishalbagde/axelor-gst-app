@@ -84,8 +84,8 @@
     <series key="total" type="bar" />
     <series key="status_count" type="line" />
   </chart>
-  
-  
+
+
   <chart name="chart.gst.invoice.per.status.line" title="Invoice Per Status Line Chart">
     <dataset type="sql">
      <![CDATA[
@@ -100,5 +100,5 @@
     <category key="status" type="text" />
     <series key="status_count" type="line" />
   </chart>
-  
+
 </object-views>

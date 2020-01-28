@@ -12,7 +12,6 @@ import com.axelor.gst.db.service.GstInvoiceService;
 import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
 import com.google.inject.Inject;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +30,9 @@ public class GstInvoiceController {
       for (int i = 0; i < productIdsList.length; i++) {
         InvoiceLine invoiceline = new InvoiceLine();
         Product product =
-        productRepo.all().filter("self.id = :id").bind("id", productIdsList[i]).fetchOne();
+            productRepo.all().filter("self.id = :id").bind("id", productIdsList[i]).fetchOne();
         invoiceline.setProduct(product);
-        invoiceline=invoiceLineSer.setDefaultValueInInvoiceLine(invoiceline);
+        invoiceline = invoiceLineSer.setDefaultValueInInvoiceLine(invoiceline);
         invoiceLineList.add(invoiceline);
         invoice.setInvoiceLineList(invoiceLineList);
       }

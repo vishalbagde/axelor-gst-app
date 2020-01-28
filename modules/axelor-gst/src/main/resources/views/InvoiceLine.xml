@@ -67,7 +67,6 @@
   <check field="qty" if="qty &lt;= 0" error="Invalid Qty"/>
   </action-condition>
 
-
   <action-group name="action-group-invoice-line-on-change-check-price-and-qty">
   <action name="action-condition-gst-check-qty-and-price"/>
   <action name="action-attrs-invoice-line-on-change-set-net-amount"/>

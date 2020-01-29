@@ -3,15 +3,16 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
 
-  <form model="com.axelor.gst.db.Product" title="Product" name="product-form" width="large">
+  <form model="com.axelor.gst.db.Product" title="Product" name="product-form"
+    width="large">
     <panel title="Product Details" css="panel-red">
       <panel colSpan="4">
-        <field name="image" widget="Image" showTitle="false" ></field>
+        <field name="image" widget="Image" showTitle="false"></field>
       </panel>
       <panel colSpan="8" itemSpan="8" name="productName">
-        <field name="code"/>
-        <field name="name"/>
-        <field name="hsbn"/>
+        <field name="code" />
+        <field name="name" />
+        <field name="hsbn" />
         <field name="category" onChange="action-gst-product-record-set-gst-rate" />
       </panel>
     </panel>
@@ -22,13 +23,17 @@
     </panel>
   </form>
 
-  <grid model="com.axelor.gst.db.Product" title="Product" name="product-grid" id="product_grid" >
-  <toolbar>
+  <grid model="com.axelor.gst.db.Product" title="Product" name="product-grid"
+    id="product_grid">
+    <toolbar>
 
-  <button name="createInvoiceBtn" title="Create Invoice"  onClick="action-gst-method-product-on-click-set-product-id,action-gst-view-product-set-in-invoice" />
-  <button name="printBtn" title="Print" onClick="action-gst-method-product-on-click-set-product-id,action-report-product-on-click-print-product"/>
-  <button name="createInvoice2Btn" title="Create Invoice Method"  onClick="action-gst-method-product-on-click-set-product-id,action-gst-view-product-set-in-invoice-by-method" />
-  </toolbar>
+      <button name="createInvoiceBtn" title="Create Invoice"
+        onClick="action-gst-method-product-on-click-set-product-id,action-gst-view-product-set-in-invoice" />
+      <button name="printBtn" title="Print"
+        onClick="action-gst-method-product-on-click-set-product-id,action-report-product-on-click-print-product" />
+      <button name="createInvoice2Btn" title="Create Invoice Method"
+        onClick="action-gst-method-product-on-click-set-product-id,action-gst-view-product-set-in-invoice-by-method" />
+    </toolbar>
 
     <field name="code"></field>
     <field name="name"></field>
@@ -38,7 +43,7 @@
     <field name="salePrice"></field>
   </grid>
 
-<cards name="product-card" title="Product" model="com.axelor.gst.db.Product"
+  <cards name="product-card" title="Product" model="com.axelor.gst.db.Product"
     orderBy="name">
     <field name="name" />
     <field name="hsbn" />
@@ -47,8 +52,8 @@
     <field name="image" />
     <template><![CDATA[
       <div class="span4 card-image">
-        <img ng-if="!image" ng-src="{{$image(null, 'image')}}">
-        <img ng-if="image" src="img/user.png">
+        <img ng-if="image" ng-src="{{$image(null, 'image')}}">
+        <img ng-if="!image" src="img/user.png">
         <strong>{{name}}</strong>
       </div>
       <div class="span8">
@@ -60,30 +65,29 @@
     ]]></template>
   </cards>
 
-
   <action-record name="action-gst-product-record-set-gst-rate"
     model="com.axelor.gst.db.Product">
     <field name="gstRate" expr="eval:category.gstRate" />
   </action-record>
 
-  <action-report output="${date}${time}" name="action-report-product-on-click-print-product"
-    design="product_report.rptdesign">
-    <param name="productIdsStr" expr="eval:_productIdsStr"/>
-    <param name="attachmentPath" expr="/home/axelor/.axelor/attachments"/>
+  <action-report output="${date}${time}"
+    name="action-report-product-on-click-print-product" design="product_report.rptdesign">
+    <param name="productIdsStr" expr="eval:_productIdsStr" />
+    <param name="attachmentPath" expr="/home/axelor/.axelor/attachments" />
   </action-report>
 
-  <action-view name="action-gst-view-product-set-in-invoice" title="Invoice Details" model="com.axelor.gst.db.Invoice">
-    <view type="form" name="invoice-form"/>
-    <context name="productIdsStr" expr="eval:_productIdsStr"/>
+  <action-view name="action-gst-view-product-set-in-invoice"
+    title="Invoice Details" model="com.axelor.gst.db.Invoice">
+    <view type="form" name="invoice-form" />
+    <context name="productIdsStr" expr="eval:_productIdsStr" />
   </action-view>
 
   <action-method name="action-gst-method-product-on-click-set-product-id">
-    <call class="com.axelor.gst.db.web.GstProductController" method="gstSelectProductIdInGrid"/>
+    <call class="com.axelor.gst.db.web.GstProductController" method="gstSelectProductIdInGrid" />
   </action-method>
 
-
-<action-method name="action-gst-view-product-set-in-invoice-by-method">
-    <call class="com.axelor.gst.db.web.GstProductController" method="gstCreateInvoiceInGrid"/>
-</action-method>
+  <action-method name="action-gst-view-product-set-in-invoice-by-method">
+    <call class="com.axelor.gst.db.web.GstProductController" method="gstCreateInvoiceInGrid" />
+  </action-method>
 
 </object-views>

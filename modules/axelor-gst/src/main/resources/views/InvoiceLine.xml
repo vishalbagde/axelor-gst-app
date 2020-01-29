@@ -41,15 +41,6 @@
     <field name="grossAmount" />
   </grid>
 
-  <action-attrs name="action-attrs-invoice-line-on-change-set-item">
-    <attribute name="value" if="product != null" for="item" expr="eval:'['+product.code+'] '+product.name" />
-    <attribute name="value" if="product != null" for="price" expr="eval:product.costPrice" />
-  </action-attrs>
-
-  <action-attrs name="action-attrs-invoice-line-on-change-set-gst-rate">
-    <attribute name="value" if="product != null"  for="gstRate" expr="eval:product.gstRate" />
-  </action-attrs>
-
    <action-attrs name="action-attrs-invoice-line-on-change-set-net-amount">
     <attribute name="value" for="netAmount" expr="eval:price*qty" />
   </action-attrs>

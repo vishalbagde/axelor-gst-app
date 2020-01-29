@@ -5,8 +5,8 @@
 
   <module name="gst" package="com.axelor.gst.db" />
   <entity name="State">
-    <string name="name" namecolumn="true" required="true" title="State Name" />
-    <string name="country" title="Country" />
+    <string name="name" namecolumn="true" unique="true" required="true" title="State Name" />
+    <many-to-one name="country" ref="Country"/>
   </entity>
 
 </domain-models>

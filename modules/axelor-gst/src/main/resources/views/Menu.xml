@@ -5,11 +5,12 @@
 
   <!-- Main Menu -->
   <menuitem title="GST MODULE" name="menu-gst-main-module"
-    icon-background="blue" icon="fa-money"  />
+    icon-background="blue" icon="fa-money" />
 
-  <!--Main Menu  DASHBOARD -->
+  <!--Main Menu DASHBOARD -->
   <menuitem title="DASHBOARD" name="menu-gst-module-dashboard"
-    icon="fa-dashboard" parent="menu-gst-main-module" action="dashboard-gst-all" order="-90"  />
+    icon="fa-dashboard" parent="menu-gst-main-module" action="dashboard-gst-all"
+    order="-90" />
 
   <action-view name="dashboard-gst-all" title="Dashboard"
     model="com.axelor.gst.db.Invoice" home="true">
@@ -81,7 +82,7 @@
     action="menu-action-view-country-all" />
 
   <action-view name="menu-action-view-country-all" title="Country"
-    model="com.axelor.gst.db.Country" >
+    model="com.axelor.gst.db.Country">
     <view type="grid" name="country-grid" />
     <view type="form" name="country-form" />
   </action-view>

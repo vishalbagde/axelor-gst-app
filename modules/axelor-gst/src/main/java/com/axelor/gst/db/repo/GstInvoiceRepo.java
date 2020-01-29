@@ -5,13 +5,15 @@ import com.axelor.gst.db.Party;
 import java.util.Map;
 
 public class GstInvoiceRepo extends InvoiceRepository {
+
+  public enum Gst {
+    STATEGST,
+    IGST
+  };
+
   @Override
   public Map<String, Object> populate(Map<String, Object> json, Map<String, Object> context) {
 
-    /*  if (!context.containsKey("json-enhance")) {
-     return json;
-    }
-    */
     try {
       Long id = (Long) json.get("id");
       Invoice invoice = find(id);
@@ -25,7 +27,6 @@ public class GstInvoiceRepo extends InvoiceRepository {
 
   @Override
   public Invoice save(Invoice entity) {
-    // TODO Auto-generated method stub
     return super.save(entity);
   }
 }

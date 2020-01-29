@@ -588,57 +588,6 @@ any(regexp_split_to_array(?, ',')::text[])
                             <property name="borderTopWidth">thin</property>
                             <property name="height">1.65625in</property>
                             <property name="width">7.875in</property>
-                            <property name="dataSet">product_dataset</property>
-                            <list-property name="boundDataColumns">
-                                <structure>
-                                    <property name="name">code</property>
-                                    <text-property name="displayName">code</text-property>
-                                    <expression name="expression" type="javascript">dataSetRow["code"]</expression>
-                                    <property name="dataType">string</property>
-                                </structure>
-                                <structure>
-                                    <property name="name">cost_price</property>
-                                    <text-property name="displayName">cost_price</text-property>
-                                    <expression name="expression" type="javascript">dataSetRow["cost_price"]</expression>
-                                    <property name="dataType">decimal</property>
-                                </structure>
-                                <structure>
-                                    <property name="name">gst_rate</property>
-                                    <text-property name="displayName">gst_rate</text-property>
-                                    <expression name="expression" type="javascript">dataSetRow["gst_rate"]</expression>
-                                    <property name="dataType">decimal</property>
-                                </structure>
-                                <structure>
-                                    <property name="name">hsbn</property>
-                                    <text-property name="displayName">hsbn</text-property>
-                                    <expression name="expression" type="javascript">dataSetRow["hsbn"]</expression>
-                                    <property name="dataType">string</property>
-                                </structure>
-                                <structure>
-                                    <property name="name">image</property>
-                                    <text-property name="displayName">image</text-property>
-                                    <expression name="expression" type="javascript">dataSetRow["image"]</expression>
-                                    <property name="dataType">decimal</property>
-                                </structure>
-                                <structure>
-                                    <property name="name">name</property>
-                                    <text-property name="displayName">name</text-property>
-                                    <expression name="expression" type="javascript">dataSetRow["name"]</expression>
-                                    <property name="dataType">string</property>
-                                </structure>
-                                <structure>
-                                    <property name="name">sale_price</property>
-                                    <text-property name="displayName">sale_price</text-property>
-                                    <expression name="expression" type="javascript">dataSetRow["sale_price"]</expression>
-                                    <property name="dataType">decimal</property>
-                                </structure>
-                                <structure>
-                                    <property name="name">file_path</property>
-                                    <text-property name="displayName">file_path</text-property>
-                                    <expression name="expression" type="javascript">dataSetRow["file_path"]</expression>
-                                    <property name="dataType">string</property>
-                                </structure>
-                            </list-property>
                             <column id="556">
                                 <property name="width">2.4583333333333335in</property>
                             </column>
@@ -650,45 +599,9 @@ any(regexp_split_to_array(?, ',')::text[])
                                     <property name="borderRightWidth">thin</property>
                                     <image id="570">
                                         <property name="height">1.5416666666666667in</property>
-                                        <property name="width">2.3in</property>
+                                        <property name="width">2.375in</property>
                                         <property name="dataSet">product_dataset</property>
                                         <list-property name="boundDataColumns">
-                                            <structure>
-                                                <property name="name">code</property>
-                                                <expression name="expression" type="javascript">dataSetRow["code"]</expression>
-                                                <property name="dataType">string</property>
-                                            </structure>
-                                            <structure>
-                                                <property name="name">cost_price</property>
-                                                <expression name="expression" type="javascript">dataSetRow["cost_price"]</expression>
-                                                <property name="dataType">decimal</property>
-                                            </structure>
-                                            <structure>
-                                                <property name="name">gst_rate</property>
-                                                <expression name="expression" type="javascript">dataSetRow["gst_rate"]</expression>
-                                                <property name="dataType">decimal</property>
-                                            </structure>
-                                            <structure>
-                                                <property name="name">hsbn</property>
-                                                <expression name="expression" type="javascript">dataSetRow["hsbn"]</expression>
-                                                <property name="dataType">string</property>
-                                            </structure>
-                                            <structure>
-                                                <property name="name">image</property>
-                                                <expression name="expression" type="javascript">dataSetRow["image"]</expression>
-                                                <property name="dataType">blob</property>
-                                                <property name="allowExport">true</property>
-                                            </structure>
-                                            <structure>
-                                                <property name="name">name</property>
-                                                <expression name="expression" type="javascript">dataSetRow["name"]</expression>
-                                                <property name="dataType">string</property>
-                                            </structure>
-                                            <structure>
-                                                <property name="name">sale_price</property>
-                                                <expression name="expression" type="javascript">dataSetRow["sale_price"]</expression>
-                                                <property name="dataType">decimal</property>
-                                            </structure>
                                             <structure>
                                                 <property name="name">image_1</property>
                                                 <text-property name="displayName">image</text-property>

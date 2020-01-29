@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <object-views xmlns="http://axelor.com/xml/ns/object-views"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
 
-  <selection name="address.type.selection">
-    <option value="default">default</option>
-    <option value="invoice">invoice</option>
-    <option value="shipping">shipping</option>
-    <option value="other">other</option>
-  </selection>
+	<selection name="address.type.selection">
+		<option value="default">default</option>
+		<option value="invoice">invoice</option>
+		<option value="shipping">shipping</option>
+		<option value="other">other</option>
+	</selection>
 
-   <form model="com.axelor.gst.db.Address" title="Address" name="address-form" width="large">
-    <panel itemSpan="4" title="Address Details" name="overview">
-      <field name="typeSelect"/>
-      <field name="line1"/>
-      <field name="line2"/>
-    </panel>
-    <panel itemSpan="3" title="Area Details" name="areaPanel">
-      <field name="city"/>
-      <field name="state"/>
-      <field name="country"/>
-      <field name="pinCode"/>
-    </panel>
-  </form>
+	<form model="com.axelor.gst.db.Address" title="Address" name="address-form"
+		width="large">
+		<panel itemSpan="4" title="Address Details" name="overview">
+			<field name="typeSelect" />
+			<field name="line1" />
+			<field name="line2" />
+		</panel>
+		<panel itemSpan="3" title="Area Details" name="areaPanel">
+			<field name="city" onChange="action-gst-attrs-on-change-city-set-state" />
+			<field name="state" onChange="action-gst-attrs-on-change-state-set-country" />
+			<field name="country" />
+			<field name="pinCode" />
+		</panel>
+	</form>
 
-  <grid model="com.axelor.gst.db.Address" title="Address" name="address-grid">
-    <field name="typeSelect"></field>
-    <field name="line1"></field>
-    <field name="city"></field>
-    <field name="state"></field>
-    <field name="country"></field>
-    <field name="pinCode"></field>
-  </grid>
+	<grid model="com.axelor.gst.db.Address" title="Address" name="address-grid">
+		<field name="typeSelect"></field>
+		<field name="line1"></field>
+		<field name="city" />
+		<field name="state"></field>
+		<field name="country"></field>
+		<field name="pinCode"></field>
+	</grid>
 
+	<action-attrs name="action-gst-attrs-on-change-city-set-state">
+		<attribute name="value" for="state" expr="eval: null" />
+		<attribute name="domain" for="state" if="city"
+			expr="eval: &quot; self.id = ${__this__.city.state.id} &quot; " />
+	</action-attrs>
 
-
-
-  </object-views>
+</object-views>

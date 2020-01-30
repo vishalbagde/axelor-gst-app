@@ -10,7 +10,7 @@
 
   <form model="com.axelor.gst.db.Party" title="Party" name="party-form"
     width="large" onSave="action-gst-party-method-on-save-set-reference">
-    <panel itemSpan="4" title="Party Details" name="overview">
+    <panel itemSpan="4" title="Party Details" name="overviewPanel">
       <field name="reference" showIf="id" />
       <field name="name" />
       <field name="typeSelect" />
@@ -88,6 +88,6 @@
 
   <action-method name="action-gst-party-method-on-save-set-reference"
     model="com.axelor.gst.db.Party">
-    <call class="com.axelor.gst.db.web.GstSequenceController" method="setReferenceInParty" />
+    <call class="com.axelor.gst.db.web.GstPartyController" method="setReferenceInParty" />
   </action-method>
 </object-views>

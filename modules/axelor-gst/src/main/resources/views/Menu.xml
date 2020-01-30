@@ -19,7 +19,7 @@
 
   <!--MAIN PARTY -->
   <menuitem title="Party" name="menu-party-main-all" parent="menu-gst-main-module"
-    icon="fa-handshake-o" icon-background="purple" />
+    icon="fa-handshake-o" />
 
   <!-- Menu party -->
   <menuitem title="Party" name="menu-party-all" parent="menu-party-main-all"

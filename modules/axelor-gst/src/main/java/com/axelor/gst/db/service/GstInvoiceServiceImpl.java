@@ -6,7 +6,6 @@ import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.InvoiceLine;
 import com.axelor.gst.db.Party;
 import com.axelor.gst.db.Product;
-import com.axelor.gst.db.repo.GstInvoiceRepo.Gst;
 import com.axelor.gst.db.repo.ProductRepository;
 import com.google.inject.Inject;
 import java.math.BigDecimal;
@@ -25,20 +24,20 @@ public class GstInvoiceServiceImpl implements GstInvoiceService {
       List<InvoiceLine> invoiceLineList = invoice.getInvoiceLineList();
 
       if (invoice.getCompany() != null && invoice.getInvoiceAddress() != null) {
-        Gst gst = null;
+        boolean isIgst = false;
 
         if (invoice
             .getCompany()
             .getAddress()
             .getState()
-            .equals(invoice.getInvoiceAddress().getState())) gst = Gst.STATEGST;
-        else gst = Gst.IGST;
+            .equals(invoice.getInvoiceAddress().getState())) isIgst = false;
+        else isIgst = true;
 
         if (invoiceLineList != null) {
 
           for (InvoiceLine invoiceLine : invoiceLineList) {
 
-            invoiceLine = invoiceLineSer.calculatePerProductGst(invoiceLine, gst);
+            invoiceLine = invoiceLineSer.calculatePerProductGst(invoiceLine, isIgst);
           }
           invoice.setInvoiceLineList(invoiceLineList);
           invoice = setTotalInInvoice(invoice);

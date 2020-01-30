@@ -6,11 +6,6 @@ import java.util.Map;
 
 public class GstInvoiceRepo extends InvoiceRepository {
 
-  public enum Gst {
-    STATEGST,
-    IGST
-  };
-
   @Override
   public Map<String, Object> populate(Map<String, Object> json, Map<String, Object> context) {
 

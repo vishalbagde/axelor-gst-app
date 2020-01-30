@@ -2,7 +2,6 @@ package com.axelor.gst.db.service;
 
 import com.axelor.gst.db.InvoiceLine;
 import com.axelor.gst.db.Product;
-import com.axelor.gst.db.repo.GstInvoiceRepo.Gst;
 import java.math.BigDecimal;
 
 public class GstInvoiceLineServiceImpl implements GstInvoiceLineService {
@@ -23,7 +22,7 @@ public class GstInvoiceLineServiceImpl implements GstInvoiceLineService {
   }
 
   @Override
-  public InvoiceLine calculatePerProductGst(InvoiceLine invoiceLine, Gst gst) {
+  public InvoiceLine calculatePerProductGst(InvoiceLine invoiceLine, Boolean isIgst) {
 
     invoiceLine.setSgst(BigDecimal.ZERO);
     invoiceLine.setCgst(BigDecimal.ZERO);
@@ -35,16 +34,13 @@ public class GstInvoiceLineServiceImpl implements GstInvoiceLineService {
             .getNetAmount()
             .multiply(invoiceLine.getGstRate())
             .divide(BigDecimal.valueOf(100));
-
-    if (gst == Gst.STATEGST) {
+    if (isIgst) {
+      invoiceLine.setIgst(gstAmount);
+    } else {
       BigDecimal interGst = gstAmount.divide(BigDecimal.valueOf(2));
       invoiceLine.setSgst(interGst);
       invoiceLine.setCgst(interGst);
-
-    } else {
-      invoiceLine.setIgst(gstAmount);
     }
-
     invoiceLine.setGrossAmount(invoiceLine.getNetAmount().add(gstAmount));
     return invoiceLine;
   }

@@ -2,7 +2,6 @@ package com.axelor.gst.db.web;
 
 import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.InvoiceLine;
-import com.axelor.gst.db.repo.GstInvoiceRepo.Gst;
 import com.axelor.gst.db.service.GstInvoiceLineService;
 import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
@@ -19,15 +18,15 @@ public class GstInvoiceLineController {
 
       if (invoice.getCompany() != null && invoice.getInvoiceAddress() != null) {
 
-        Gst gst = null;
+        Boolean isIgst = false;
         if (invoice
             .getCompany()
             .getAddress()
             .getState()
-            .equals(invoice.getInvoiceAddress().getState())) gst = Gst.STATEGST;
-        else gst = Gst.IGST;
+            .equals(invoice.getInvoiceAddress().getState())) isIgst = false;
+        else isIgst = true;
 
-        invoiceLineSer.calculatePerProductGst(invoiceLine, gst);
+        invoiceLineSer.calculatePerProductGst(invoiceLine, isIgst);
         response.setValues(invoiceLine);
 
       } else {
@@ -48,7 +47,8 @@ public class GstInvoiceLineController {
       invoiceLineSer.setDefaultValueInInvoiceLine(invoiceLine);
       response.setValues(invoiceLine);
     } else {
-      response.setFlash("Invalid Product");
+      invoiceLine = invoiceLineSer.setEmptyValueInInvoiceLine(invoiceLine);
+      response.setValues(invoiceLine);
     }
   }
 }

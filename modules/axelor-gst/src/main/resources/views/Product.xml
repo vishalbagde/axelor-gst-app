@@ -29,8 +29,7 @@
 
       <button name="createInvoiceBtn" title="Create Invoice"
         onClick="action-gst-method-product-on-click-set-product-id,action-gst-view-product-set-in-invoice" />
-      <button name="printBtn" title="Print"
-        onClick="action-gst-method-product-on-click-set-product-id,action-report-product-on-click-print-product" />
+      <button name="printBtn" title="Print" onClick="action-gst-method-product-on-click-set-product-id,action-gst-validate-on-click-check-product-ids,action-report-product-on-click-print-product" />
       <button name="createInvoice2Btn" title="Create Invoice Method"
         onClick="action-gst-method-product-on-click-set-product-id,action-gst-view-product-set-in-invoice-by-method" />
     </toolbar>
@@ -89,5 +88,11 @@
   <action-method name="action-gst-view-product-set-in-invoice-by-method">
     <call class="com.axelor.gst.db.web.GstProductController" method="gstCreateInvoiceInGrid" />
   </action-method>
+
+
+
+  <action-validate name="action-gst-validate-on-click-check-product-ids">
+  <error if="!_productIdsStr" message="please select product" />
+  </action-validate>
 
 </object-views>

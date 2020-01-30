@@ -18,7 +18,6 @@ public class GstModule extends AxelorModule {
   protected void configure() {
     bind(PartyRepository.class).to(GstPartyRepo.class);
     bind(InvoiceRepository.class).to(GstInvoiceRepo.class);
-
     bind(SequenceService.class).to(SequenceServiceImpl.class);
     bind(GstInvoiceService.class).to(GstInvoiceServiceImpl.class);
     bind(GstInvoiceLineService.class).to(GstInvoiceLineServiceImpl.class);

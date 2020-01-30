@@ -2,6 +2,7 @@ package com.axelor.gst.db.web;
 
 import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.service.GstInvoiceService;
+import com.axelor.gst.db.service.SequenceService;
 import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
 import com.google.inject.Inject;
@@ -9,6 +10,20 @@ import com.google.inject.Inject;
 public class GstInvoiceController {
 
   @Inject GstInvoiceService invoiceSer;
+  @Inject SequenceService sequenceService;
+
+  public void setReferenceInInvoice(ActionRequest request, ActionResponse response) {
+    Invoice invoice = request.getContext().asType(Invoice.class);
+    if (invoice.getReference() == null) {
+      String seq = sequenceService.getSequence(Invoice.class.getSimpleName());
+      if (seq != null) {
+        invoice.setReference(seq);
+        response.setValue("reference", seq);
+      } else {
+        response.setError("Sequence Not Available");
+      }
+    }
+  }
 
   public void setOrderLineFromProduct(ActionRequest request, ActionResponse response) {
     String productIdsStr = (String) request.getContext().get("productIdsStr");

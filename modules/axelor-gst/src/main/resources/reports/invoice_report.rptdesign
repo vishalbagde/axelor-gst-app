@@ -1215,6 +1215,7 @@ where invoice.id=?
                             <data id="384">
                                 <property name="fontSize">14pt</property>
                                 <property name="color">green</property>
+                                <property name="marginLeft">0pt</property>
                                 <structure name="stringFormat">
                                     <property name="category">></property>
                                     <property name="pattern">></property>
@@ -1231,16 +1232,6 @@ where invoice.id=?
                                 </list-property>
                                 <property name="resultSetColumn">cname</property>
                             </data>
-                            <label id="10">
-                                <property name="fontSize">14pt</property>
-                                <property name="fontWeight">bold</property>
-                                <property name="paddingTop">0pt</property>
-                                <property name="paddingLeft">0pt</property>
-                                <property name="paddingBottom">0pt</property>
-                                <property name="paddingRight">0pt</property>
-                                <property name="textAlign">center</property>
-                                <text-property name="text">INVOICE</text-property>
-                            </label>
                             <text id="14">
                                 <property name="textAlign">right</property>
                                 <property name="contentType">html</property>
@@ -1337,6 +1328,14 @@ where invoice.id=?
         </simple-master-page>
     </page-setup>
     <body>
+        <label id="546">
+            <property name="fontSize">14pt</property>
+            <property name="fontWeight">bold</property>
+            <property name="textUnderline">underline</property>
+            <property name="paddingBottom">5pt</property>
+            <property name="textAlign">center</property>
+            <text-property name="text">INVOICE</text-property>
+        </label>
         <grid id="386">
             <property name="borderBottomStyle">solid</property>
             <property name="borderBottomWidth">thin</property>
@@ -1346,7 +1345,7 @@ where invoice.id=?
             <property name="borderRightWidth">thin</property>
             <property name="borderTopStyle">solid</property>
             <property name="borderTopWidth">thin</property>
-            <property name="height">1.28125in</property>
+            <property name="height">1.59375in</property>
             <property name="width">7.979166666666667in</property>
             <column id="387">
                 <property name="width">3.9791666666666665in</property>
@@ -1355,7 +1354,7 @@ where invoice.id=?
                 <property name="width">4in</property>
             </column>
             <row id="389">
-                <property name="height">1.28125in</property>
+                <property name="height">1.59375in</property>
                 <cell id="390">
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
@@ -1425,7 +1424,7 @@ where invoice.id=?
                 </cell>
                 <cell id="391">
                     <grid id="406">
-                        <property name="height">1.1145833333333333in</property>
+                        <property name="height">1.4895833333333333in</property>
                         <property name="width">3.90625in</property>
                         <column id="407">
                             <property name="width">0.8541666666666666in</property>
@@ -1508,6 +1507,32 @@ where invoice.id=?
                                         </structure>
                                     </list-property>
                                     <property name="resultSetColumn">pin_code</property>
+                                </data>
+                            </cell>
+                        </row>
+                        <row id="540">
+                            <property name="height">0.375in</property>
+                            <cell id="541">
+                                <label id="544">
+                                    <property name="fontSize">12pt</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="display">block</property>
+                                    <text-property name="text">GST No:</text-property>
+                                </label>
+                            </cell>
+                            <cell id="542">
+                                <data id="545">
+                                    <property name="fontSize">12pt</property>
+                                    <property name="dataSet">invoice</property>
+                                    <list-property name="boundDataColumns">
+                                        <structure>
+                                            <property name="name">gstin</property>
+                                            <text-property name="displayName">gstin</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["gstin"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                    </list-property>
+                                    <property name="resultSetColumn">gstin</property>
                                 </data>
                             </cell>
                         </row>
@@ -1779,6 +1804,7 @@ where invoice.id=?
             </header>
             <detail>
                 <row id="477">
+                    <property name="height">0.3125in</property>
                     <cell id="478">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
@@ -1870,6 +1896,7 @@ where invoice.id=?
             </detail>
             <footer>
                 <row id="496">
+                    <property name="height">0.3645833333333333in</property>
                     <cell id="497">
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>

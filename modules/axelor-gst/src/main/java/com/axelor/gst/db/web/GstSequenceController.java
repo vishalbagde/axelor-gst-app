@@ -8,19 +8,18 @@ import com.google.inject.Inject;
 
 public class GstSequenceController {
 
-	@Inject
-	SequenceService sequenceService;
+  @Inject SequenceService sequenceService;
 
-	public void setNextNumberOnCreate(ActionRequest request, ActionResponse response) {
+  public void setNextNumberOnCreate(ActionRequest request, ActionResponse response) {
 
-		Sequence sequence = request.getContext().asType(Sequence.class);
-		if (sequence.getNextNumber() == null) {		
-			String seq = sequenceService.getSequence(sequence.getModel().getName());
-			if (seq != null) {
-				response.setValue("nextNumber", seq);
-			} else {
-				response.setFlash("Sequence Not Available");
-			}
-		}
-	}
+    Sequence sequence = request.getContext().asType(Sequence.class);
+    if (sequence.getNextNumber() == null) {
+      String seq = sequenceService.getSequence(sequence.getModel().getName());
+      if (seq != null) {
+        response.setValue("nextNumber", seq);
+      } else {
+        response.setFlash("Sequence Not Available");
+      }
+    }
+  }
 }

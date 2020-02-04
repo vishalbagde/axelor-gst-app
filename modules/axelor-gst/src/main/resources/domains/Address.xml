@@ -7,9 +7,9 @@
     <string name="typeSelect" selection="address.type.selection" title="Address Type" />
     <string name="line1" namecolumn="true" required="true" title="Address Line1" />
     <string name="line2" title="Address Line2" />
-    <many-to-one name="city" ref="City" required="true" title="City" />
-    <many-to-one name="state" ref="State" title="State" required="true" />
-    <many-to-one name="country" ref="Country" required="true" title="Country" />
+    <many-to-one name="city" ref="com.axelor.gst.db.City" required="true" title="City" />
+    <many-to-one name="state" ref="com.axelor.gst.db.State" title="State" required="true" />
+    <many-to-one name="country" ref="com.axelor.gst.db.Country" required="true" title="Country" />
     <string name="pinCode" title="Pincode" />
   </entity>
 </domain-models>

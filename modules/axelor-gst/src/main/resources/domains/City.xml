@@ -6,7 +6,7 @@
   <module name="gst" package="com.axelor.gst.db" />
   <entity name="City">
     <string name="name" namecolumn="true" unique="true" required="true" title="City Name" />
-    <many-to-one name="state" ref="State"/>
-    <many-to-one name="country" ref="Country"/>
+    <many-to-one name="state" ref="com.axelor.gst.db.State"/>
+    <many-to-one name="country" ref="com.axelor.gst.db.Country"/>
   </entity>
 </domain-models>

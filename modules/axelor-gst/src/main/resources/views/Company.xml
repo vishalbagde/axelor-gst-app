@@ -32,7 +32,7 @@
     <panel-related field="bankAccountList" />
   </form>
 
-  <grid model="com.axelor.gst.db.Company" title="Party" name="company-grid">
+  <grid model="com.axelor.gst.db.Company" title="Company" name="company-grid">
     <field name="name"></field>
     <field name="gstin"></field>
     <field name="address"></field>

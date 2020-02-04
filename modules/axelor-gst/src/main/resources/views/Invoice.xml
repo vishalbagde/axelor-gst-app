@@ -30,8 +30,7 @@
       <button name="statusDraftBtn" css="btn-primary" title="Draft"
         hidden="true" showIf="statusSelect =='cancelled'"
         onClick="action-attrs-invoice-on-click-change-status-draft,save" />
-      <button name="statusVadidatedBtn,save" css="btn-success"
-        title="Validated" showIf="statusSelect =='draft'"
+      <button name="statusVadidatedBtn" css="btn-success" title="Validated" showIf="statusSelect =='draft'"
         onClick="action-gst-invoice-method-on-save-set-reference,action-attrs-invoice-on-click-change-status-validated,save" />
       <button name="statusPaidBtn" css="btn-warning" title="Paid"
         showIf="statusSelect == 'validated'" onClick="action-attrs-invoice-on-click-change-status-paid,save" />
@@ -40,7 +39,7 @@
     </panel>
 
     <panel itemSpan="3" name="overview">
-      <field name="reference" showIf="id" />
+      <field name="reference" showIf="id"  />
       <field name="company" />
       <field name="invoiceDateT" />
       <field name="priority" />
@@ -112,11 +111,11 @@
   </action-attrs>
 
   <action-attrs name="action-attrs-invoice-on-click-change-status-validated">
-    <attribute name="value" if="reference" for="statusSelect" expr="eval:'validated'" />
+    <attribute name="value" if="reference" for="statusSelect" expr="eval:'validated'"/>
   </action-attrs>
 
   <action-attrs name="action-attrs-invoice-on-click-change-status-paid">
-    <attribute name="value" for="statusSelect" expr="eval:'paid'" />
+    <attribute name="value" for="statusSelect" expr="eval:'paid'"/>
   </action-attrs>
 
   <action-attrs name="action-attrs-invoice-on-click-change-status-canceled">
@@ -141,7 +140,7 @@
 
   <action-method name="action-gst-invoice-method-on-save-set-reference"
     model="com.axelor.gst.db.Invoice">
-    <call class="com.axelor.gst.db.web.GstInvoiceController" method="setReferenceInInvoice" />
+    <call class="com.axelor.gst.db.web.GstInvoiceController"  method="setReferenceInInvoice" />
   </action-method>
 
   <action-method name="action-gst-invoice-line-method-on-new-set-total"
@@ -189,8 +188,8 @@
     <action name="action-gst-group-invoice-on-save-set-reference-verify-invoice" />
   </action-group>
 
-  <action-group name="action-gst-group-invoice-on-save-set-reference-verify-invoice">
-    <action name="action-invoice-order-validate" />
+  <action-group name="action-gst-group-invoice-on-save-set-reference-verify-invoice" >
+    <action name="action-invoice-order-validate"  />
     <action name="action-gst-invoice-method-on-save-verify-data" />
   </action-group>
 

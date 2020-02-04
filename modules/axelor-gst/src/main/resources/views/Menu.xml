@@ -9,10 +9,10 @@
 
   <!--Main Menu DASHBOARD -->
   <menuitem title="DASHBOARD" name="menu-gst-module-dashboard"
-    icon="fa-dashboard" parent="menu-gst-main-module" action="dashboard-gst-all"
+    icon="fa-dashboard" parent="menu-gst-main-module" action="dashboard.gst.all"
     order="-90" />
 
-  <action-view name="dashboard-gst-all" title="Dashboard"
+  <action-view name="dashboard.gst.all" title="Dashboard"
     model="com.axelor.gst.db.Invoice" home="true">
     <view type="dashboard" name="dashboard-gst-main" />
   </action-view>
@@ -23,9 +23,9 @@
 
   <!-- Menu party -->
   <menuitem title="Party" name="menu-party-all" parent="menu-party-main-all"
-    action="menu-action-view-party-all" />
+    action="menu.action.view.party.all" />
 
-  <action-view name="menu-action-view-party-all" title="Party"
+  <action-view name="menu.action.view.party.all" title="Party"
     model="com.axelor.gst.db.Party">
     <view type="grid" name="party-grid" />
     <view type="form" name="party-form" />
@@ -34,14 +34,13 @@
 
   <!-- Menu Contact -->
   <menuitem title="Contact" name="menu-contact-all" parent="menu-party-main-all"
-    action="menu-action-view-contact-all" />
+    action="menu.action.view.contact.all" />
 
-  <action-view name="menu-action-view-contact-all" model="com.axelor.gst.db.Contact"
+  <action-view name="menu.action.view.contact.all" model="com.axelor.gst.db.Contact"
     title="Contact">
     <view type="grid" name="contact-grid" />
     <view type="form" name="contact-form" />
   </action-view>
-
 
   <!--MAIN Menu Configurations -->
   <menuitem title="Configurations" name="menu-configurations-main-all"
@@ -49,9 +48,9 @@
 
   <!--Menu Address -->
   <menuitem title="Address" name="menu-address-all" parent="menu-configurations-main-all"
-    action="menu-action-view-address-all" />
+    action="menu.action.view.address.all" />
 
-  <action-view name="menu-action-view-address-all" title="Address"
+  <action-view name="menu.action.view.address.all" title="Address"
     model="com.axelor.gst.db.Address">
     <view type="grid" name="address-grid" />
     <view type="form" name="address-form" />
@@ -59,9 +58,9 @@
 
   <!-- Menu City -->
   <menuitem title="City" name="menu-city-all" parent="menu-configurations-main-all"
-    action="menu-action-view-city-all" />
+    action="menu.action.view.city.all" />
 
-  <action-view name="menu-action-view-city-all" title="City"
+  <action-view name="menu.action.view.city.all" title="City"
     model="com.axelor.gst.db.City">
     <view type="grid" name="city-grid" />
     <view type="form" name="city-form" />
@@ -69,9 +68,9 @@
 
   <!-- Menu State -->
   <menuitem title="State" name="menu-state-all" parent="menu-configurations-main-all"
-    action="menu-action-view-state-all" />
+    action="menu.action.view.state.all" />
 
-  <action-view name="menu-action-view-state-all" title="State"
+  <action-view name="menu.action.view.state.all" title="State"
     model="com.axelor.gst.db.State">
     <view type="grid" name="state-grid" />
     <view type="form" name="state-form" />
@@ -79,9 +78,9 @@
 
   <!-- Menu Country -->
   <menuitem title="Country" name="menu-country-all" parent="menu-configurations-main-all"
-    action="menu-action-view-country-all" />
+    action="menu.action.view.country.all" />
 
-  <action-view name="menu-action-view-country-all" title="Country"
+  <action-view name="menu.action.view.country.all" title="Country"
     model="com.axelor.gst.db.Country">
     <view type="grid" name="country-grid" />
     <view type="form" name="country-form" />
@@ -94,9 +93,9 @@
 
   <!--Menu Product -->
   <menuitem title="Product" name="menu-product-all" parent="menu-product-main-all"
-    action="menu-action-view-product-all" />
+    action="menu.action.view.product.all" />
 
-  <action-view name="menu-action-view-product-all" title="Product"
+  <action-view name="menu.action.view.product.all" title="Product"
     model="com.axelor.gst.db.Product">
     <view type="grid" name="product-grid" />
     <view type="form" name="product-form" />
@@ -105,9 +104,9 @@
 
   <!--Menu ProductCategory -->
   <menuitem title="ProductCategory" name="menu-product-category-all"
-    parent="menu-product-main-all" action="menu-action-view-product-category-all" />
+    parent="menu-product-main-all" action="menu.action.view.product.category.all" />
 
-  <action-view name="menu-action-view-product-category-all"
+  <action-view name="menu.action.view.product.category.all"
     title="ProductCategory" model="com.axelor.gst.db.ProductCategory">
     <view type="grid" name="product-category-grid" />
     <view type="form" name="product-category-form" />
@@ -120,18 +119,18 @@
 
   <!--Menu Create Invoice -->
   <menuitem title="Create Invoice" name="menu-create-invoice-all"
-    parent="menu-invoice-main-all" action="menu-action-view-create-invoice-all" />
+    parent="menu-invoice-main-all" action="menu.action.view.create.invoice.all" />
 
-  <action-view name="menu-action-view-create-invoice-all"
+  <action-view name="menu.action.view.create.invoice.all"
     title="Invoice" model="com.axelor.gst.db.Invoice">
     <view type="form" name="invoice-form" />
   </action-view>
 
   <!--Menu Draft Invoice -->
   <menuitem title="Draft Invoice" name="menu-draft-invoice-all"
-    parent="menu-invoice-main-all" action="menu-action-view-draft-invoice-all" />
+    parent="menu-invoice-main-all" action="menu.action.view.draft.invoice.all" />
 
-  <action-view name="menu-action-view-draft-invoice-all"
+  <action-view name="menu.action.view.draft.invoice.all"
     title="Draft Invoice" model="com.axelor.gst.db.Invoice">
     <view type="grid" name="invoice-grid" />
     <view type="form" name="invoice-form" />
@@ -140,9 +139,9 @@
 
   <!--Menu Validated Invoice -->
   <menuitem title="Validated Invoice" name="menu-validated-invoice-all"
-    parent="menu-invoice-main-all" action="menu-action-view-validated-invoice-all" />
+    parent="menu-invoice-main-all" action="menu.action.view.validated.invoice.all" />
 
-  <action-view name="menu-action-view-validated-invoice-all"
+  <action-view name="menu.action.view.validated.invoice.all"
     title="Validated Invoice" model="com.axelor.gst.db.Invoice">
     <view type="grid" name="invoice-grid" />
     <view type="form" name="invoice-form" />
@@ -151,9 +150,9 @@
 
   <!--Menu Paid Invoice -->
   <menuitem title="Paid Invoice" name="menu-paid-invoice-all"
-    parent="menu-invoice-main-all" action="menu-action-view-paid-invoice-all" />
+    parent="menu-invoice-main-all" action="menu.action.view.paid.invoice.all" />
 
-  <action-view name="menu-action-view-paid-invoice-all"
+  <action-view name="menu.action.view.paid.invoice.all"
     title="Paid Invoice" model="com.axelor.gst.db.Invoice">
     <view type="grid" name="invoice-grid" />
     <view type="form" name="invoice-form" />
@@ -162,9 +161,9 @@
 
   <!--Menu cancelled Invoice -->
   <menuitem title="cancelled Invoice" name="menu-cancelled-invoice-all"
-    parent="menu-invoice-main-all" action="menu-action-view-cancelled-invoice-all"></menuitem>
+    parent="menu-invoice-main-all" action="menu.action.view.cancelled.invoice.all"></menuitem>
 
-  <action-view name="menu-action-view-cancelled-invoice-all"
+  <action-view name="menu.action.view.cancelled.invoice.all"
     title="Cancelled Invoice" model="com.axelor.gst.db.Invoice">
     <view type="grid" name="invoice-grid" />
     <view type="form" name="invoice-form" />
@@ -174,9 +173,9 @@
 
   <!--Menu All Invoice -->
   <menuitem title="All Invoice" name="menu-all-invoice-all"
-    parent="menu-invoice-main-all" action="menu-action-view-all-invoice-all" />
+    parent="menu-invoice-main-all" action="menu.action.view.all.invoice.all" />
 
-  <action-view name="menu-action-view-all-invoice-all" title="Invoice"
+  <action-view name="menu.action.view.all.invoice.all" title="Invoice"
     model="com.axelor.gst.db.Invoice">
     <view type="grid" name="invoice-grid" />
     <view type="form" name="invoice-form" />
@@ -189,9 +188,9 @@
 
   <!-- Menu Company -->
   <menuitem title="Company" name="menu-company-all" parent="menu-company-main-all"
-    action="menu-action-view-company-all" />
+    action="menu.action.view.company.all" />
 
-  <action-view name="menu-action-view-company-all" title="Company"
+  <action-view name="menu.action.view.company.all" title="Company"
     model="com.axelor.gst.db.Company">
     <view type="grid" name="company-grid" />
     <view type="form" name="company-form" />
@@ -199,9 +198,9 @@
 
   <!-- Menu BankAccount -->
   <menuitem title="BankAccount" name="menu-bank-account-all"
-    parent="menu-company-main-all" action="menu-action-view-bank-account-all" />
+    parent="menu-company-main-all" action="menu.action.view.bank.account.all" />
 
-  <action-view name="menu-action-view-bank-account-all"
+  <action-view name="menu.action.view.bank.account.all"
     title="Bank Account" model="com.axelor.gst.db.BankAccount">
     <view type="grid" name="bank-account-grid" />
     <view type="form" name="bank-account-form" />
@@ -209,9 +208,9 @@
 
   <!-- Menu Sequence -->
   <menuitem title="Sequence" name="menu-sequence-all" parent="menu-company-main-all"
-    action="menu-action-view-sequence-all" />
+    action="menu.action.view.sequence.all" />
 
-  <action-view name="menu-action-view-sequence-all" title="Sequence"
+  <action-view name="menu.action.view.sequence.all" title="Sequence"
     model="com.axelor.gst.db.Sequence">
     <view type="grid" name="sequence-grid" />
     <view type="form" name="sequence-form" />

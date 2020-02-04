@@ -1,6 +1,8 @@
 package com.axelor.gst.db.web;
 
 import com.axelor.gst.db.Invoice;
+import com.axelor.gst.db.Sequence;
+import com.axelor.gst.db.repo.SequenceRepository;
 import com.axelor.gst.db.service.GstInvoiceService;
 import com.axelor.gst.db.service.SequenceService;
 import com.axelor.rpc.ActionRequest;
@@ -11,11 +13,19 @@ public class GstInvoiceController {
 
   @Inject GstInvoiceService invoiceSer;
   @Inject SequenceService sequenceService;
+  @Inject SequenceRepository sequenceRepo;
 
   public void setReferenceInInvoice(ActionRequest request, ActionResponse response) {
     Invoice invoice = request.getContext().asType(Invoice.class);
+
     if (invoice.getReference() == null) {
-      String seq = sequenceService.getSequence(Invoice.class.getSimpleName());
+      Sequence sequence =
+          sequenceRepo
+              .all()
+              .filter("self.model.name = :model")
+              .bind("model", Invoice.class.getSimpleName())
+              .fetchOne();
+      String seq = sequenceService.getSequence(sequence, true);
       if (seq != null) {
         invoice.setReference(seq);
         response.setValue("reference", seq);

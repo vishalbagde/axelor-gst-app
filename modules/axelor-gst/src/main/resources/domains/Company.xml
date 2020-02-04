@@ -6,9 +6,9 @@
   <entity name="Company">
     <string name="name" title="Company Name" required="true" />
     <many-to-one name="logo" title="Company Logo" ref="com.axelor.meta.db.MetaFile" />
-    <one-to-many name="contactList" ref="Contact" title="Contact Details" />
+    <one-to-many name="contactList" ref="com.axelor.gst.db.Contact" title="Contact Details" />
     <string name="gstin" min="15" max="15" title="GSTIN NO." />
-    <one-to-many name="bankAccountList" ref="BankAccount" title="Bank Account Details" />
-    <many-to-one name="address" ref="Address" title="Address Details"/>
+    <one-to-many name="bankAccountList" ref="com.axelor.gst.db.BankAccount" title="Bank Account Details" />
+    <many-to-one name="address" ref="com.axelor.gst.db.Address" title="Address Details"/>
   </entity>
 </domain-models>

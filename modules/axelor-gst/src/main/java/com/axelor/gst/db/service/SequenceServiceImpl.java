@@ -8,55 +8,58 @@ import org.apache.commons.lang.StringUtils;
 
 public class SequenceServiceImpl implements SequenceService {
 
-  @Inject SequenceRepository sequenceRepo;
+	@Inject
+	SequenceRepository sequenceRepo;
 
-  @Transactional
-  @Override
-  public String getSequence(String model) {
-    Sequence sequence =
-        sequenceRepo.all().filter("self.model.name = :model").bind("model", model).fetchOne();
-    if (sequence != null) {
-      String seq = "";
-      if (sequence.getNextNumber() == null) {
-        seq = getInitialNextNumber(sequence);
-        return seq;
-      } else {
-        seq = sequence.getNextNumber();
-        String nextNumber = sequence.getNextNumber();
+	@Transactional
+	@Override
+	public String getSequence(Sequence sequence1, boolean isPersist) {
 
-        if (sequence.getPrefix() != null) nextNumber = nextNumber.replace(sequence.getPrefix(), "");
+		Sequence sequence = sequence1;
+		String seq = "";
+		String nextNumber = "";
+		String nextSeq = "";
 
-        if (sequence.getSuffix() != null) nextNumber = nextNumber.replace(sequence.getSuffix(), "");
+		if (sequence != null) {
 
-        String nextSeq = "";
-        if (StringUtils.isNumeric(nextNumber)) {
-          nextNumber = Integer.parseInt(nextNumber) + 1 + "";
-          nextSeq += sequence.getPrefix();
-          nextSeq += StringUtils.leftPad(nextNumber + "", sequence.getPadding(), "0");
-          if (sequence.getSuffix() != null) {
-            nextSeq += sequence.getSuffix();
-          }
-        } else {
-          nextSeq = getInitialNextNumber(sequence);
-        }
-        sequence.setNextNumber(nextSeq);
-        sequenceRepo.persist(sequence);
-        return seq;
-      }
-    } else {
-      return null;
-    }
-  }
+			if (sequence.getNextNumber() == null) {
+				nextNumber = "1";
+			} else {
+				seq = sequence.getNextNumber();
+				nextNumber = sequence.getNextNumber();
 
-  @Override
-  public String getInitialNextNumber(Sequence sequence) {
-    String seq = "";
-    int nextNumber = 1;
-    seq += sequence.getPrefix();
-    seq += StringUtils.leftPad(nextNumber + "", sequence.getPadding(), "0");
-    if (sequence.getSuffix() != null) {
-      seq += sequence.getSuffix();
-    }
-    return seq;
-  }
+				if (sequence.getPrefix() != null)
+					nextNumber = nextNumber.replace(sequence.getPrefix(), "");
+
+				if (sequence.getSuffix() != null)
+					nextNumber = nextNumber.replace(sequence.getSuffix(), "");
+
+				if (StringUtils.isNumeric(nextNumber)) {
+					nextNumber = Integer.parseInt(nextNumber) + 1 + "";
+
+				} else {
+					nextNumber = "1";
+				}
+			}
+		} else {
+			return null;
+		}
+
+		nextSeq += sequence.getPrefix();
+		nextSeq += StringUtils.leftPad(nextNumber + "", sequence.getPadding(), "0");
+		if (sequence.getSuffix() != null)
+			nextSeq += sequence.getSuffix();
+		sequence.setNextNumber(nextSeq);
+
+		if (isPersist) {
+			sequenceRepo.persist(sequence);
+		}
+		if (seq.equals(""))
+			return nextSeq;
+		else
+			return seq;
+	}
 }
+
+
+

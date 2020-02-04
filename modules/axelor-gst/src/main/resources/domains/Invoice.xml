@@ -7,15 +7,15 @@
 
   <entity name="Invoice">
     <string name="statusSelect" selection="invoice.status.selection" default="draft" readonly="true" title="Invoice Status"></string>
-    <many-to-one name="company" ref="Company" required="true" title="Company" />
+    <many-to-one name="company" ref="com.axelor.gst.db.Company" required="true" title="Company" />
     <string name="reference" readonly="true" title="Reference"/>
     <datetime name="invoiceDateT" title="Invoice Date Time" ></datetime>
     <integer name="priority" default="1" title="Priority"></integer>
 
-    <many-to-one name="party" ref="Party" required="true" title="Party"/>
-    <many-to-one name="partyContact" ref="Contact" title="Party Contact Details"/>
-    <many-to-one name="invoiceAddress" ref="Address" title="Invoice Address"/>
-    <many-to-one name="shippingAddress" ref="Address" title="Shipping Address"/>
+    <many-to-one name="party" ref="com.axelor.gst.db.Party" required="true" title="Party"/>
+    <many-to-one name="partyContact" ref="com.axelor.gst.db.Contact" title="Party Contact Details"/>
+    <many-to-one name="invoiceAddress" ref="com.axelor.gst.db.Address" title="Invoice Address"/>
+    <many-to-one name="shippingAddress" ref="com.axelor.gst.db.Address" title="Shipping Address"/>
 
     <boolean name="isInvoiceAddAsShippingAdd" default="true" title="Is Same As Shipping Address"/>
 
@@ -25,6 +25,6 @@
     <decimal name="sgst" readonly="true" title="SGST"/>
     <decimal name="grossAmount" title="Gross Amount"></decimal>
 
-    <one-to-many name="invoiceLineList" ref="InvoiceLine" mappedBy="invoice" title="Invoice Item Details" />
+    <one-to-many name="invoiceLineList" ref="com.axelor.gst.db.InvoiceLine" mappedBy="invoice" title="Invoice Item Details" />
   </entity>
 </domain-models>
